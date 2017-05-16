@@ -7,12 +7,23 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'org.springframework:springloaded:1.2.6.RELEASE'
 	}
 }
 
+
+
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+
+
+idea {
+	module {
+		inheritOutputDirs = false
+		outputDir = file("$buildDir/classes/main/")
+	}
+}
 
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
@@ -29,4 +40,5 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	runtime('mysql:mysql-connector-java')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile("org.springframework.boot:spring-boot-devtools")
 }

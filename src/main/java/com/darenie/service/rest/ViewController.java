@@ -11,4 +11,8 @@ public class ViewController {
         return "index";
     }
 
+    @RequestMapping("/cudo")
+    public String cudo(){
+        return "e";
+    }
 }
