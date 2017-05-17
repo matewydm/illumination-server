@@ -15,4 +15,8 @@ public class ViewController {
     public String cudo(){
         return "e";
     }
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
 }
