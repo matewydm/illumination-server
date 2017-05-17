@@ -13,31 +13,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 //        super.configure(http);//.anyRequest().permitAll();
-        http
-                .authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll().
-                and().antMatcher("/css/**").
-                authorizeRequests().anyRequest().permitAll();
-
 //        http
 //                .authorizeRequests()
 //                .antMatchers("/", "/home").permitAll()
-//                .anyRequest().authenticated()
+////                .anyRequest().authenticated()
 //                .and()
 //                .formLogin()
 //                .loginPage("/login")
 //                .permitAll()
 //                .and()
 //                .logout()
-//                .permitAll();
+//                .permitAll().
+//                and().antMatcher("/css/**").
+//                authorizeRequests().anyRequest().permitAll();
+
+        http
+                .authorizeRequests()
+                .antMatchers("/", "/home","/css/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login").successForwardUrl("/")
+                .permitAll()
+                .and()
+                .logout().logoutSuccessUrl("/").logoutUrl("/signout")
+                .permitAll();
     }
 
     @Override
