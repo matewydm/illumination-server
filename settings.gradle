@@ -1,0 +1,10 @@
+rootProject.name = 'Illumiantion'
+
+include 'model'
+include 'view'
+include 'service'
+include 'dao'
+include 'config'
+include 'dao'
+include 'app'
+
