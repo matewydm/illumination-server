@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@EntityScan("com.darenie.database")
+@EntityScan("com.darenie")
 public class IlluminationApplication {
 
 	public static void main(String[] args) {
