@@ -1,10 +1,11 @@
 package com.darenie.database.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @MappedSuperclass
-public abstract class AbstractData {
+public abstract class AbstractData implements Serializable {
 
 
     private Long id;

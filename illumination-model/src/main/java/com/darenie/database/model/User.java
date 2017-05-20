@@ -1,9 +1,10 @@
 package com.darenie.database.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class User {
+public class User implements Serializable {
 
     private Integer usrId;
     private String usrLogin;
