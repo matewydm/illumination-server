@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html th:lang="${#locale.language}" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>Illumination App</title>
     <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
 </head>
 <body>
-    Illumination app ee112121vv3333ncvncv
+    Illuminationa
+    <p th:text="#{labels.cudo}"></p>
 </body>
 </html>
