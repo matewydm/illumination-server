@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>0hh Website Template | Home :: W3layouts</title>
+    <meta name="keywords" content="404 iphone web template, Andriod web template" />
+    <link  rel="stylesheet" type="text/css"  media="all" th:href="@{/css/error/404style.css}" />
+    <link rel="stylesheet"  th:href="@{/css/bootstrap.css}" />
+
+</head>
+<body>
+<div class="wrap">
+    <div class="header">
+        <div class="logo">
+            <h1><a href="#">Ohh</a></h1>
+        </div>
+    </div>
+
+    <div class="content">
+        <img  title="error" th:src="@{/img/error/error-img.png}" />
+        <p><span><label>O</label>hh.....</span>You Requested the page that is no longer There.</p>
+        <a th:href="@{/}">Back To Home</a>
+        <div class="copy-right">
+            <p>&#169; All rights Reserved | Designed by <a href="http://w3layouts.com/">W3Layouts</a></p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
+
