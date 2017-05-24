@@ -1,35 +1,30 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" >
 <head>
     <meta charset="UTF-8"/>
     <title>Spring Security Example </title>
-    <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
-    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 
 </head>
+
 <body>
-<div th:if="${param.error}">
-    Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<div id="boxForm" >
-    <h2 id="title">Illumination</h2>
+<div id="boxForm">
+    <h2 id="title" th:text="#{labels.main.name}"></h2>
     <!--<form th:action="@{/login}" method="post">-->
-        <!--<div><label> User Name : <input type="text" name="username"/> </label></div>-->
-        <!--<div><label> Password: <input type="password" name="password"/> </label></div>-->
-        <!--<div><input type="submit" value="Sign In"/></div>-->
+    <!--<div><label> User Name : <input type="text" name="username"/> </label></div>-->
+    <!--<div><label> Password: <input type="password" name="password"/> </label></div>-->
+    <!--<div><input type="submit" value="Sign In"/></div>-->
     <!--</form>-->
-
+    <h4 th:if="${param.error}" class="error">Wrong user or password</h4>
     <form th:action="@{/login}" method="post">
-        <input class='text'  name="username" placeholder='Login' />
+        <input class='text' name="username" placeholder='Login'/>
         <br/>
-        <input class='text' id='pwd'  type="password" name ="password" placeholder='Password' />
+        <input class='text' id='pwd' type="password" name="password" placeholder='Password'/>
 
         <br/>
-        <input class ="button" type="submit" value="Sign In"/>
+        <input class="button" type="submit" value="Sign In"/>
     </form>
 </div>
 
