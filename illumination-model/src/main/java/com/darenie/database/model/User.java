@@ -2,6 +2,7 @@ package com.darenie.database.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class User implements Serializable {
@@ -9,6 +10,7 @@ public class User implements Serializable {
     private Integer usrId;
     private String usrLogin;
     private String usrPassword;
+    private List<Role> roles;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,5 +39,19 @@ public class User implements Serializable {
 
     public void setUsrPassword(String usrPassword) {
         this.usrPassword = usrPassword;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "ur_usr_id", referencedColumnName = "usr_id"),
+            inverseJoinColumns = @JoinColumn(name = "ur_role_id", referencedColumnName = "role_id")
+    )
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

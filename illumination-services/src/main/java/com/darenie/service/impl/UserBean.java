@@ -20,7 +20,10 @@ public class UserBean implements UserService {
     @Override
     public UserJson findByUsrId(Integer usrId) {
         User user = userDao.findByUsrId(usrId);
-        UserJson userJson = modelMapper.map(user,UserJson.class);
+        UserJson userJson = null;
+        if (user != null) {
+            userJson = modelMapper.map(user,UserJson.class);
+        }
         return userJson;
     }
 }
