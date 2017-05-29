@@ -28,4 +28,9 @@ public class ViewController {
     public String login(){
         return "login";
     }
+
+    @RequestMapping("/spa")
+    public String spaReact(){
+        return "emptySpa";
+    }
 }

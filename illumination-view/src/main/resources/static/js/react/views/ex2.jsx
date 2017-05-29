@@ -2,15 +2,14 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import { Button,ButtonToolbar } from 'react-bootstrap';
 
-import { ReactRouter,Router, Route, Switch } from 'react-router';
 
 
 
 var EMPLOYEES = [
-    {name: 'Joe Biden', age: 45, years: 5},
-    {name: 'President Obama', age: 54, years: 8},
-    {name: 'Crystal Mac', age: 34, years: 12    },
-    {name: 'James Henry', age: 33, years: 2}
+    {name: 'Joe11111111 Biden', age: 45, years: 5},
+    {name: 'President11 Obama', age: 54, years: 8},
+    {name: 'Cryst11al Mac', age: 34, years: 12    },
+    {name: 'Jame11s Henry', age: 33, years: 2}
 ];
 
 
@@ -70,39 +69,15 @@ const buttonsInstance = (
 );
 
 
-class App2 extends React.Component{
+class App extends React.Component{
     render(){
         return(<div>
                 <h1>{buttonsInstance}</h1>
                 <div><EmployeeTable employees={EMPLOYEES} /></div>
-                </div>
+            </div>
 
         )
     }
 }
-var App = React.createClass({
-    render: function() {
-        return (
-            <div>
-                <h1>Simple SPA</h1>
-                <ul className="header">
-                    <li>Home</li>
-                    <li>Stuff</li>
-                    <li>Contact</li>
-                </ul>
-                <div className="content">
-
-                </div>
-            </div>
-        )
-    }
-});
-var Home = React.createClass({
-    render: function() {
-        return (<h1>Welcome to the Home Page</h1>);
-    }
-});
-ReactDOM.render(  <Router>
-        <Route path="/blank" component={Home} />
-    </Router>
+ReactDOM.render(<App/>
     , document.getElementById('root'));
