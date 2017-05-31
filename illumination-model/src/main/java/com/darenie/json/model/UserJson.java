@@ -37,4 +37,12 @@ public class UserJson {
     public void setRoles(List<RoleJson> roles) {
         this.roles = roles;
     }
+
+    public String getUsrPassword() {
+        return usrPassword;
+    }
+
+    public void setUsrPassword(String usrPassword) {
+        this.usrPassword = usrPassword;
+    }
 }
