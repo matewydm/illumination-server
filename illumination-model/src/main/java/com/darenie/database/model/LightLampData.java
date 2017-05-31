@@ -1,6 +1,7 @@
 package com.darenie.database.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Table
 @Entity
@@ -11,7 +12,7 @@ import javax.persistence.*;
 })
 public class LightLampData extends AbstractData{
 
-
+    private List<CronData> cron;
 
     private AddressData addressData;
 
@@ -43,5 +44,15 @@ public class LightLampData extends AbstractData{
     public interface Status{
         String ON ="N";
         String OFF ="F";
+    }
+    @OneToMany
+    @JoinColumn(name = "")
+    public List<CronData> getCron() {
+        return cron;
+    }
+
+    public LightLampData setCron(List<CronData> cron) {
+        this.cron = cron;
+        return this;
     }
 }

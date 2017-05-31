@@ -64,6 +64,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 //    }
 
     @Bean
+    @Primary
     public MessageSource messageSource(){
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:i18n/messages");
