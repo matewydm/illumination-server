@@ -18,8 +18,6 @@ public class LightLampData extends AbstractData{
 
     private String status;
 
-//    private String type;
-
     @OneToOne
     @JoinColumn(name = "address_data_id")
     public AddressData getAddressData() {
@@ -35,15 +33,14 @@ public class LightLampData extends AbstractData{
         this.addressData = addressData;
     }
 
-
-
     public void setStatus(String status) {
         this.status = status;
     }
 
     public interface Status{
-        String ON ="N";
-        String OFF ="F";
+        String WORKING ="W";
+        String NOT_WORKING ="N";
+        String BROKEN ="B";
     }
     @OneToMany
     @JoinColumn(name = "")
