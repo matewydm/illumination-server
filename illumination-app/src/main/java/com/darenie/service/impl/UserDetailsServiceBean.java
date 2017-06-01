@@ -4,6 +4,7 @@ import com.darenie.database.dao.UserDao;
 import com.darenie.database.model.Role;
 import com.darenie.database.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@Primary
 public class UserDetailsServiceBean implements UserDetailsService {
     @Autowired
     private UserDao userDao;
@@ -25,11 +27,14 @@ public class UserDetailsServiceBean implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.findByUsrLogin(username);
 
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (Role role : user.getRoles()){
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getRoleName()));
-        }
+        if (user != null) {
+            Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+            for (Role role : user.getRoles()) {
+                grantedAuthorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+            }
 
-        return new org.springframework.security.core.userdetails.User(user.getUsrLogin(), user.getUsrPassword(), grantedAuthorities);
+            return new org.springframework.security.core.userdetails.User(user.getUsrLogin(), user.getUsrPassword(), grantedAuthorities);
+        }
+        throw new UsernameNotFoundException("User " + username + " doesn't exist");
     }
 }
