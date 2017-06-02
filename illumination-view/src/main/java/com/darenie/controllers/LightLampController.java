@@ -50,23 +50,22 @@ public class LightLampController {
 
 
     @RequestMapping(value = "/map", method = RequestMethod.GET)
-    public ModelAndView lampMap(){
+    public String lampMap(Model model){
 
-        ModelAndView model = new ModelAndView("lightMap");
         ObjectMapper mapper = new ObjectMapper();
 
         List<LightLampDataJson> lightLampDataJsons = lightLampService.getAll();
 
         try {
             String lampListString = mapper.writeValueAsString(lightLampDataJsons);
-            model.addObject("lightMapList", lampListString);
+            model.addAttribute("lightMapList", lampListString);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        model.addObject("BROKEN",LightLampDataJson.Status.BROKEN);
-        model.addObject("WORKING",LightLampDataJson.Status.WORKING);
-        model.addObject("NOT_WORKING",LightLampDataJson.Status.NOT_WORKING);
+        model.addAttribute("BROKEN",LightLampDataJson.Status.BROKEN);
+        model.addAttribute("WORKING",LightLampDataJson.Status.WORKING);
+        model.addAttribute("NOT_WORKING",LightLampDataJson.Status.NOT_WORKING);
 
-        return model;
+        return "lightMap";
     }
 }
