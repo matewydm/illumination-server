@@ -22,8 +22,6 @@ import java.util.List;
 public class ViewController {
 
     @Autowired
-    private LightLampService lightLampService;
-    @Autowired
     private MessageSource ms;
 
     @RequestMapping("/")
@@ -41,21 +39,4 @@ public class ViewController {
         return "login";
     }
 
-    @RequestMapping(value = "/map", method = RequestMethod.GET)
-    public ModelAndView lampMap(){
-
-        ModelAndView model = new ModelAndView("map");
-        ObjectMapper mapper = new ObjectMapper();
-
-        List<LightLampDataJson> lightLampDataJsons = lightLampService.getAll();
-
-        try {
-            String jsonString = mapper.writeValueAsString(lightLampDataJsons);
-            model.addObject("lightMapList", jsonString);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        return model;
-    }
 }
