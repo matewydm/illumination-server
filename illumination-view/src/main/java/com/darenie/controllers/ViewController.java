@@ -50,11 +50,14 @@ public class ViewController {
         List<LightLampDataJson> lightLampDataJsons = lightLampService.getAll();
 
         try {
-            String jsonString = mapper.writeValueAsString(lightLampDataJsons);
-            model.addObject("lightMapList", jsonString);
+            String lampListString = mapper.writeValueAsString(lightLampDataJsons);
+            model.addObject("lightMapList", lampListString);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+        model.addObject("BROKEN",LightLampDataJson.Status.BROKEN);
+        model.addObject("WORKING",LightLampDataJson.Status.WORKING);
+        model.addObject("NOT_WORKING",LightLampDataJson.Status.NOT_WORKING);
 
         return model;
     }
