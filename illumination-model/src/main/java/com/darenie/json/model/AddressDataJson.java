@@ -1,44 +1,25 @@
-package com.darenie.database.model;
+package com.darenie.json.model;
 
-
-import javax.persistence.*;
-
-@Table
-@Entity
-@AttributeOverrides(value = {
-        @AttributeOverride(name = "id", column = @Column(name = "address_data_id")),
-        @AttributeOverride(name = "name", column = @Column(name = "address_data_name")),
-        @AttributeOverride(name = "description", column = @Column(name = "address_data_description"))
-})
-public class AddressData extends AbstractData {
-
+public class AddressDataJson  extends AbstractDataJson {
 
     private Double latitude;
-
     private Double longitude;
-
     private String country;
-
     private String city;
-
     private String street;
 
-    @Column
     public Double getLatitude() {
         return latitude;
     }
 
-    @Column(length = 3)
     public String getCountry() {
         return country;
     }
 
-    @Column
     public String getCity() {
         return city;
     }
 
-    @Column
     public String getStreet() {
         return street;
     }
@@ -59,11 +40,9 @@ public class AddressData extends AbstractData {
         this.country = country;
     }
 
-
     public void setCity(String city) {
         this.city = city;
     }
-
 
     public void setStreet(String street) {
         this.street = street;
