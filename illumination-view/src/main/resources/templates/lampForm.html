@@ -15,7 +15,10 @@
         <div class="container-fluid">
                 <form th:action="@{/light/create} " method="post" th:object="${LIGHT_LAMP_FORM}">
                     <input type="text" th:field="*{name}" />
-
+                    <div th:each="timeData,status : *{times}" class="form-group">
+                        <label>Start</label><input th:field="*{times[__${status.index}__].startTime}" />
+                        <label>End</label><input th:field="*{times[__${status.index}__].endTime}"  />
+                    </div>
                     <button type="submit" name="addRow" th:text="#{labels.form.create}"></button>
                 </form>
         </div>
@@ -24,7 +27,6 @@
     </div>
 </div>
 <!--<div th:replace="fragments/footer :: footer"> </div>-->
-
 
 </body>
 </html>
