@@ -1,6 +1,6 @@
 package com.darenie.json.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ public class RoleJson {
 
     private Integer roleId;
     private String roleName;
-    @JsonBackReference
+    @JsonManagedReference
     private List<UserJson> users;
 
     public Integer getRoleId() {

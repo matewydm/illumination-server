@@ -1,5 +1,6 @@
 package com.darenie.json.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.xml.bind.annotation.XmlTransient;
@@ -11,7 +12,7 @@ public class UserJson {
     private String usrLogin;
     @XmlTransient
     private String usrPassword;
-    @JsonManagedReference
+    @JsonBackReference
     private List<RoleJson> roles;
 
     public Integer getUsrId() {

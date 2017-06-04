@@ -43,7 +43,8 @@ public class LightLampController {
 
     @RequestMapping(value = "/create",method = RequestMethod.POST)
     public String createLightCi(ServletRequest request, ServletResponse response,
-                                @Valid @ModelAttribute(LIGHT_LAMP_FORM)LightLampForm form, BindingResult r, Model m){
+                                @Valid @ModelAttribute(LIGHT_LAMP_FORM)LightLampForm form,
+                                BindingResult r, Model m){
 
         return "redirect:/";
     }

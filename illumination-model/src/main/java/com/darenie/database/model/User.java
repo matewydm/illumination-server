@@ -11,7 +11,7 @@ public class User implements Serializable {
     private Integer usrId;
     private String usrLogin;
     private String usrPassword;
-    private Set<Role> roles;
+    private List<Role> roles;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,11 +48,11 @@ public class User implements Serializable {
             joinColumns = @JoinColumn(name = "ur_usr_id", referencedColumnName = "usr_id"),
             inverseJoinColumns = @JoinColumn(name = "ur_role_id", referencedColumnName = "role_id")
     )
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 }

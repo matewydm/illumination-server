@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Illumination App</title>
+    <object th:include="fragments/script_styles :: styles_script" th:remove="tag" ></object>
+</head>
+<body>
+
+<div id="wrapper">
+    <object th:replace="fragments/global_layout :: page_layout" ></object>
+
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+
+            <form th:action="@{/register}" method="post" th:object="${REGISTER_FORM}">
+                <p>Login: <input type="text" th:field="*{login}" /></p>
+                <p>Password: <input type="text" th:field="*{password}" /></p>
+                <p>Dare :
+                    <select th:field="*{roleIds}" multiple="multiple">
+                        <option th:each="role : ${ROLES}" th:field="*{roleIds}" th:value="${{role.roleId}}" th:text="#{${role.roleName}}">Wireframe</option>
+                    </select>
+                </p>
+
+
+                <button type="submit" name="addRow" th:text="#{labels.form.create}"></button>
+                <button type="reset" name="addRow" th:text="#{labels.form.reset}"></button>
+
+            </form>
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+</div>
+<!--<div th:replace="fragments/footer :: footer"> </div>-->
+
+
+</body>
+</html>
