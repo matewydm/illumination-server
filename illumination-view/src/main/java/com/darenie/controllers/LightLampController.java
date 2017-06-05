@@ -1,8 +1,11 @@
 package com.darenie.controllers;
 
 import com.darenie.controllers.form.LightLampForm;
+import com.darenie.controllers.form.TimeLineWrapper;
+import com.darenie.controllers.form.TimeScheduleForm;
 import com.darenie.database.dao.LightLampDataRepository;
 import com.darenie.database.model.LightLampData;
+import com.darenie.database.model.TimeLineData;
 import com.darenie.json.model.LightLampDataJson;
 import com.darenie.service.LightLampService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -24,9 +27,11 @@ import java.beans.PropertyEditor;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.List;
+import java.util.function.Function;
 
 @Controller
 @SessionAttributes(LightLampController.LIGHT_LAMP_FORM)
@@ -41,27 +46,41 @@ public class LightLampController {
     private LightLampDataRepository lightLampDataRepository;
 
     @RequestMapping("/create/{id}")
-    public String loadLightCIForm(ServletRequest request, ServletResponse responses, Model m, @PathVariable("id") Long lampId){
-        LightLampData l =lightLampDataRepository.getOne(lampId);
+    public String loadLightCIForm(ServletRequest request, ServletResponse responses, Model m, @PathVariable("id") Long lampId) {
+        LightLampData l = lightLampDataRepository.getOne(lampId);
 
         LightLampForm form = new LightLampForm(l);
-        m.addAttribute(LIGHT_LAMP_FORM,form);
-        m.addAttribute("cudo","abcd");
+        m.addAttribute(LIGHT_LAMP_FORM, form);
+
+        m.addAttribute("cudo", "abcd");
         return "lampForm";
 
     }
 
-    @RequestMapping(value = "/create",method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createLightCi(ServletRequest request, ServletResponse response,
-                                @Valid @ModelAttribute(LIGHT_LAMP_FORM)LightLampForm form,
-                                BindingResult r, Model m){
-
+                                @Valid @ModelAttribute(LIGHT_LAMP_FORM) LightLampForm form,
+                                BindingResult r, Model m) {
+        List<TimeLineData> time = new ArrayList<>();
+        for (TimeScheduleForm td : form.getTimes()) {
+            int day = td.getDay().getValue();
+            for (TimeLineWrapper wrapper : td.getTimeLine()) {
+                if (wrapper.getStartTime() != null && wrapper.getEndTime() != null) {
+                    TimeLineData data = new TimeLineData();
+                    data.setDayOfWeek(day);
+                    data.setStartTime(wrapper.getStartTime());
+                    data.setEndTime(wrapper.getEndTime());
+                    time.add(data);
+                }
+            }
+        }
+        lightLampService.updateLampLightDateWithTimeLineData(time,form.getId());
         return "redirect:/";
     }
 
 
     @RequestMapping(value = "/map", method = RequestMethod.GET)
-    public String lampMap(Model model){
+    public String lampMap(Model model) {
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -73,18 +92,19 @@ public class LightLampController {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        model.addAttribute("BROKEN",LightLampDataJson.Status.BROKEN);
-        model.addAttribute("WORKING",LightLampDataJson.Status.WORKING);
-        model.addAttribute("NOT_WORKING",LightLampDataJson.Status.NOT_WORKING);
+        model.addAttribute("BROKEN", LightLampDataJson.Status.BROKEN);
+        model.addAttribute("WORKING", LightLampDataJson.Status.WORKING);
+        model.addAttribute("NOT_WORKING", LightLampDataJson.Status.NOT_WORKING);
 
         return "lightMap";
     }
 
     @InitBinder
-    public void initBinder(WebDataBinder binder){
+    public void initBinder(WebDataBinder binder) {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-        PropertyEditor editor = new CustomDateEditor(dateFormat,true);
-        binder.registerCustomEditor(Date.class,editor);
+        PropertyEditor editor = new CustomDateEditor(dateFormat, true);
+        binder.registerCustomEditor(Date.class, editor);
     }
+
 
 }

@@ -12,11 +12,12 @@ import java.util.List;
 })
 public class LightLampData extends AbstractData{
 
-    private List<CronData> cron;
 
     private AddressData addressData;
 
     private String status;
+
+    private List<TimeLineData> timeLineData;
 
     @OneToOne
     @JoinColumn(name = "address_data_id")
@@ -42,14 +43,15 @@ public class LightLampData extends AbstractData{
         String NOT_WORKING ="N";
         String BROKEN ="B";
     }
-    @OneToMany
-    @JoinColumn(name = "")
-    public List<CronData> getCron() {
-        return cron;
+
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="cron_data_id")
+    public List<TimeLineData> getTimeLineData() {
+        return timeLineData;
     }
 
-    public LightLampData setCron(List<CronData> cron) {
-        this.cron = cron;
-        return this;
+    public void setTimeLineData(List<TimeLineData> timeLineData) {
+        this.timeLineData = timeLineData;
     }
 }
