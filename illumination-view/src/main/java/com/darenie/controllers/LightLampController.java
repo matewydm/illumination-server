@@ -8,15 +8,24 @@ import com.darenie.service.LightLampService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.validation.Valid;
+import java.beans.PropertyEditor;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.List;
 
 @Controller
@@ -37,6 +46,7 @@ public class LightLampController {
 
         LightLampForm form = new LightLampForm(l);
         m.addAttribute(LIGHT_LAMP_FORM,form);
+        m.addAttribute("cudo","abcd");
         return "lampForm";
 
     }
@@ -69,4 +79,12 @@ public class LightLampController {
 
         return "lightMap";
     }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder){
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        PropertyEditor editor = new CustomDateEditor(dateFormat,true);
+        binder.registerCustomEditor(Date.class,editor);
+    }
+
 }
