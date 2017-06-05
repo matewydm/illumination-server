@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class LightLampForm {
 
     private LightLampData lamp;
-    List<TimeScheduleForm> times;
+    private List<TimeScheduleForm> times;
     public LightLampForm(LightLampData lamp) {
         this.lamp = lamp;
         times =Arrays.stream(DayOfWeek.values()).map(TimeScheduleForm::new).collect(Collectors.toList());

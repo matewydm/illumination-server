@@ -1,38 +1,32 @@
 package com.darenie.controllers.form;
 
 import java.time.DayOfWeek;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TimeScheduleForm {
 
-    private Date startTime;
+//    private Date startTime;
+//
+//    private Date endTime;
 
-    private Date endTime;
+    private List<TimeLineWrapper> timeLine;
 
     private DayOfWeek day;
 
     public TimeScheduleForm(DayOfWeek day) {
+        timeLine = new ArrayList<>(1);
+        TimeLineWrapper tl = new TimeLineWrapper();
+        timeLine.add(tl);
         this.day = day;
     }
 
     public TimeScheduleForm() {
     }
 
-    public Date getStartTime() {
-        return startTime;
-    }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
 
-    public Date getEndTime() {
-        return endTime;
-    }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
 
     public DayOfWeek getDay() {
         return day;
@@ -40,5 +34,13 @@ public class TimeScheduleForm {
 
     public void setDay(DayOfWeek day) {
         this.day = day;
+    }
+
+    public List<TimeLineWrapper> getTimeLine() {
+        return timeLine;
+    }
+
+    public void setTimeLine(List<TimeLineWrapper> timeLine) {
+        this.timeLine = timeLine;
     }
 }
