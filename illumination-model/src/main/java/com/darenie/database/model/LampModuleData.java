@@ -1,6 +1,7 @@
 package com.darenie.database.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -14,6 +15,7 @@ public class LampModuleData extends AbstractData {
 
     private String ipAddress;
     private Integer port;
+    private List<LightLampData> lampDataList;
 
 
     @Column(nullable = false)
@@ -33,5 +35,14 @@ public class LampModuleData extends AbstractData {
     public LampModuleData setPort(Integer port) {
         this.port = port;
         return this;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lampModuleData")
+    public List<LightLampData> getLampDataList() {
+        return lampDataList;
+    }
+
+    public void setLampDataList(List<LightLampData> lampDataList) {
+        this.lampDataList = lampDataList;
     }
 }

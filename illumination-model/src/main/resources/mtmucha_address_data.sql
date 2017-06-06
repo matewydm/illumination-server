@@ -1,2 +1,0 @@
-INSERT INTO mtmucha.address_data (address_data_description, address_data_name, city, country, latitude, longitude, street) VALUES ('Adres, który jest dary', 'DaryAdres', 'Kraków', 'POL', 50.066666, 19.921411, 'Czarnowiejska');
-INSERT INTO mtmucha.address_data (address_data_description, address_data_name, city, country, latitude, longitude, street) VALUES ('asd', 'asd', 'Kraków', 'PL', 50.065666, 19.924411, 'Czarnowiejska');

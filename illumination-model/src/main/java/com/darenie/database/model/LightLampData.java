@@ -1,9 +1,11 @@
 package com.darenie.database.model;
 
+import javax.annotation.Generated;
 import javax.persistence.*;
 import java.util.List;
 
-@Table
+@Table (uniqueConstraints=
+        @UniqueConstraint(columnNames={"light_lamp_module_id", "lamp_module_number"}))
 @Entity
 @AttributeOverrides(value = {
         @AttributeOverride(name = "id",column = @Column(name = "light_lamp_id")),
@@ -12,12 +14,15 @@ import java.util.List;
 })
 public class LightLampData extends AbstractData{
 
-
     private AddressData addressData;
 
     private String status;
 
     private List<TimeLineData> timeLineData;
+
+    private LampModuleData lampModuleData;
+
+    private Integer lampModuleNumber;
 
     @OneToOne
     @JoinColumn(name = "address_data_id")
@@ -38,13 +43,6 @@ public class LightLampData extends AbstractData{
         this.status = status;
     }
 
-    public interface Status{
-        String WORKING ="W";
-        String NOT_WORKING ="N";
-        String BROKEN ="B";
-    }
-
-
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="cron_data_id")
     public List<TimeLineData> getTimeLineData() {
@@ -53,5 +51,31 @@ public class LightLampData extends AbstractData{
 
     public void setTimeLineData(List<TimeLineData> timeLineData) {
         this.timeLineData = timeLineData;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "light_lamp_module_id")
+    public LampModuleData getLampModuleData() {
+        return lampModuleData;
+    }
+
+    public void setLampModuleData(LampModuleData lampModuleData) {
+        this.lampModuleData = lampModuleData;
+    }
+
+    @Column(name = "lamp_module_number")
+    public Integer getLampModuleNumber() {
+        return lampModuleNumber;
+    }
+
+    public void setLampModuleNumber(Integer lampModuleNumber) {
+        this.lampModuleNumber = lampModuleNumber;
+    }
+
+
+    public interface Status{
+        String WORKING ="W";
+        String NOT_WORKING ="N";
+        String BROKEN ="B";
     }
 }
