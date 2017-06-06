@@ -1,39 +1,24 @@
 package com.darenie.controllers;
 
-import com.darenie.controllers.form.LightLampForm;
 import com.darenie.controllers.form.RegisterForm;
 import com.darenie.controllers.form.RegisterFormValidator;
-import com.darenie.database.model.Role;
-import com.darenie.database.model.User;
-import com.darenie.json.model.LightLampDataJson;
 import com.darenie.json.model.RoleJson;
 import com.darenie.json.model.UserJson;
-import com.darenie.service.LightLampService;
 import com.darenie.service.UserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.validation.Valid;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller

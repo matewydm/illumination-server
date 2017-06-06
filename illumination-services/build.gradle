@@ -30,6 +30,7 @@ dependencies{
     runtime('mysql:mysql-connector-java')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     compile("org.springframework.boot:spring-boot-devtools")
+    compile group: 'com.github.springtestdbunit', name: 'spring-test-dbunit', version: '1.0.1'
     compile project (":illumination-model")
 }
 bootRepackage.enabled = false

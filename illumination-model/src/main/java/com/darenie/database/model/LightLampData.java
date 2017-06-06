@@ -2,6 +2,7 @@ package com.darenie.database.model;
 
 import javax.annotation.Generated;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Table (uniqueConstraints=
@@ -55,6 +56,7 @@ public class LightLampData extends AbstractData{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "light_lamp_module_id")
+    @NotNull
     public LampModuleData getLampModuleData() {
         return lampModuleData;
     }
