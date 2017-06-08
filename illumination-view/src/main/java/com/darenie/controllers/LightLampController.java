@@ -1,9 +1,12 @@
 package com.darenie.controllers;
 
+import com.darenie.controllers.form.LampCreateForm;
 import com.darenie.controllers.form.LightLampForm;
 import com.darenie.controllers.form.TimeLineWrapper;
 import com.darenie.controllers.form.TimeScheduleForm;
+import com.darenie.database.dao.LampModuleDataRepository;
 import com.darenie.database.dao.LightLampDataRepository;
+import com.darenie.database.model.LampModuleData;
 import com.darenie.database.model.LightLampData;
 import com.darenie.database.model.TimeLineData;
 import com.darenie.json.model.LightLampDataJson;
@@ -34,16 +37,21 @@ import java.util.List;
 import java.util.function.Function;
 
 @Controller
-@SessionAttributes(LightLampController.LIGHT_LAMP_FORM)
+@SessionAttributes({LightLampController.LIGHT_LAMP_FORM, LightLampController.CREATE_LAMP_FORM})
 @RequestMapping("/light")
 public class LightLampController {
 
     public static final String LIGHT_LAMP_FORM = "LIGHT_LAMP_FORM";
+    public static final String CREATE_LAMP_FORM = "CREATE_LAMP_FORM";
+    private static final String MODULES = "MODULES";
+    private static final String STATUSES = "STATUSES";
 
     @Autowired
     private LightLampService lightLampService;
     @Autowired
     private LightLampDataRepository lightLampDataRepository;
+    @Autowired
+    private LampModuleDataRepository lampModuleDataRepository;
 
     @RequestMapping("/create/{id}")
     public String loadLightCIForm(ServletRequest request, ServletResponse responses, Model m, @PathVariable("id") Long lampId) {
@@ -55,6 +63,45 @@ public class LightLampController {
         m.addAttribute("cudo", "abcd");
         return "lampForm";
 
+    }
+
+    @RequestMapping("lamp/create")
+    public String createLamp(ServletRequest request, ServletResponse responses, Model m) {
+
+        List<LampModuleData> moduleDataList = lampModuleDataRepository.findAll();
+        m.addAttribute(MODULES, moduleDataList);
+        m.addAttribute(STATUSES, getStatuses());
+
+        LightLampData lightLampData = new LightLampData();
+        LampCreateForm lampCreateForm = new LampCreateForm(lightLampData);
+        m.addAttribute(CREATE_LAMP_FORM, lampCreateForm);
+
+        return "createLampForm";
+    }
+
+    private List<String> getStatuses() {
+        List<String> statusList = new ArrayList<>();
+        statusList.add(LightLampDataJson.Status.NOT_WORKING);
+        statusList.add(LightLampDataJson.Status.WORKING);
+        statusList.add(LightLampDataJson.Status.BROKEN);
+        return statusList;
+    }
+
+
+    @RequestMapping(value = "lamp/create",method = RequestMethod.POST)
+    public String createLamp (ServletRequest request, ServletResponse response,
+                              @Valid @ModelAttribute(CREATE_LAMP_FORM) LampCreateForm form,
+                              Model model, BindingResult bindingResult){
+
+//        registerFormValidator.validate(registerForm, bindingResult);
+
+//        if (bindingResult.hasErrors()) {
+//            return registerForm(model);
+//        }
+
+        lightLampDataRepository.save(form.getLightLampData());
+
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
