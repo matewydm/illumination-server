@@ -1,6 +1,7 @@
 package com.darenie.service.test;
 
 import com.darenie.database.dao.LightLampDataRepository;
+import com.darenie.database.model.AddressData;
 import com.darenie.database.model.LampModuleData;
 import com.darenie.database.model.LightLampData;
 import com.darenie.service.impl.LightLampMockBean;
@@ -15,8 +16,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.validation.constraints.Null;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
+
 public class LightLampMockBeanTest {
 
     @Configuration
@@ -28,7 +35,7 @@ public class LightLampMockBeanTest {
         }
         @Bean
         public LightLampDataRepository lightLampDataRepository() {
-            return Mockito.mock(LightLampDataRepository.class);
+            return mock(LightLampDataRepository.class);
         }
     }
 
@@ -55,9 +62,17 @@ public class LightLampMockBeanTest {
 
     private LightLampData prepareLightLampData(){
 
+        LightLampData dae = mock(LightLampData.class,Mockito.RETURNS_DEEP_STUBS);
+
+        System.out.println(dae.getAddressData().getCity());
+        AddressData a =mock(AddressData.class);
+
+        when(a.getCity()).thenReturn("dare");
+        when(dae.getAddressData()).thenReturn(a);
+        when(dae.getStatus()).thenReturn(LightLampData.Status.BROKEN);
+
         LightLampData lampData = new LightLampData();
         LampModuleData lampModuleData = new LampModuleData();
-
         lampModuleData.setId((long) 1);
         lampModuleData.setDescription("Dary modul");
         lampModuleData.setName("DareModule");
