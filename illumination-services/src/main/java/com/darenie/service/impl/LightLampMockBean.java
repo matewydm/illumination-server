@@ -9,6 +9,10 @@ import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 @Service
 public class LightLampMockBean {
 
@@ -20,11 +24,24 @@ public class LightLampMockBean {
     private static final String USER = "user";
     private static final String PASSWORD = "user";
 
-    public String getLampStatus(LightLampData lampData) {
+    public void verifyLampStatuses() {
+        List<LightLampData> lampDataList = lightLampDataRepository.findAll();
+
+        lampDataList.stream()
+                .filter(this::hasLampStatusChanged)
+                .forEach(lampData -> lightLampDataRepository.save(lampData));
+    }
+
+    public boolean hasLampStatusChanged(LightLampData lampData) {
         final String STATUS = "status";
         RestTemplate restTemplate = initRestTemplate();
         String url = buildUrl(lampData, STATUS);
-        return restTemplate.getForObject(url, String.class);
+        String pulledStatus = restTemplate.getForObject(url, String.class);
+        if (!pulledStatus.equals(lampData.getStatus())) {
+            lampData.setStatus(pulledStatus);
+            return true;
+        }
+        return false;
     }
 
     public void setLampStatus(LightLampData lampData) {

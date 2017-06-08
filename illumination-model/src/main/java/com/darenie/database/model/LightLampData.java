@@ -54,7 +54,7 @@ public class LightLampData extends AbstractData{
         this.timeLineData = timeLineData;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "light_lamp_module_id")
     @NotNull
     public LampModuleData getLampModuleData() {

@@ -37,7 +37,7 @@ public class LampModuleData extends AbstractData {
         return this;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lampModuleData")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "lampModuleData")
     public List<LightLampData> getLampDataList() {
         return lampDataList;
     }
