@@ -8,14 +8,17 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.Locale;
 
 @SpringBootApplication
-//@EnableAutoConfiguration
 @EntityScan("com.darenie")
+@EnableAsync
+@EnableScheduling
 public class IlluminationApplication{
 
 	public static void main(String[] args) {
