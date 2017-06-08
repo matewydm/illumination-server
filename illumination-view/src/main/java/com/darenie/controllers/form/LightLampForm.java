@@ -1,6 +1,7 @@
 package com.darenie.controllers.form;
 
 import com.darenie.database.model.LightLampData;
+import com.darenie.database.model.TimeLineData;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -17,9 +18,14 @@ public class LightLampForm {
     private List<TimeScheduleForm> times;
     public LightLampForm(LightLampData lamp) {
         this.lamp = lamp;
+
         times =Arrays.stream(DayOfWeek.values()).map(TimeScheduleForm::new).collect(Collectors.toList());
 
-
+//        for(TimeLineData tl: lamp.getTimeLineData()){
+//            TimeScheduleForm a = times.get(tl.getDayOfWeek() - 1);
+//
+//            a.setTimeLine();
+//        }
     }
 
 

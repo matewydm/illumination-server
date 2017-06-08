@@ -3,7 +3,10 @@ package com.darenie.database.model;
 import javax.annotation.Generated;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.DayOfWeek;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Table (uniqueConstraints=
         @UniqueConstraint(columnNames={"light_lamp_module_id", "lamp_module_number"}))
@@ -44,8 +47,8 @@ public class LightLampData extends AbstractData{
         this.status = status;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="cron_data_id")
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name="light_lamp_id")
     public List<TimeLineData> getTimeLineData() {
         return timeLineData;
     }
@@ -79,5 +82,12 @@ public class LightLampData extends AbstractData{
         String WORKING ="W";
         String NOT_WORKING ="N";
         String BROKEN ="B";
+    }
+
+    public List<TimeLineData> getTimeLineDataForDay(DayOfWeek day){
+
+        return getTimeLineData().stream()
+                .filter(t -> t.getDayOfWeek().equals(day.getValue()))
+                .collect(Collectors.toList());
     }
 }
