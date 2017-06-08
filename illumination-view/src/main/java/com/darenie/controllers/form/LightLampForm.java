@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Time;
 import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +21,18 @@ public class LightLampForm {
         this.lamp = lamp;
 
         times =Arrays.stream(DayOfWeek.values()).map(TimeScheduleForm::new).collect(Collectors.toList());
-
+        for(TimeScheduleForm tl : times){
+            List<TimeLineData> b = lamp.getTimeLineDataForDay(tl.getDay());
+            List<TimeLineWrapper> listWrapper = new ArrayList<>();
+           for(TimeLineData c: b){
+               TimeLineWrapper wrapper = new TimeLineWrapper();
+               wrapper.setStartTime(c.getStartTime());
+               wrapper.setEndTime(c.getEndTime());
+               listWrapper.add(wrapper);
+           }
+           if(listWrapper.size() !=0)
+            tl.setTimeLine(listWrapper);
+        }
 //        for(TimeLineData tl: lamp.getTimeLineData()){
 //            TimeScheduleForm a = times.get(tl.getDayOfWeek() - 1);
 //

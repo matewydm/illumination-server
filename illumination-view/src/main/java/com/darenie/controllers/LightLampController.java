@@ -51,9 +51,18 @@ public class LightLampController {
 
         LightLampForm form = new LightLampForm(l);
         m.addAttribute(LIGHT_LAMP_FORM, form);
-
         m.addAttribute("cudo", "abcd");
         return "lampForm";
+
+
+    }
+
+
+    @RequestMapping("/views")
+    public String viewAllLamp(ServletRequest request, ServletResponse responses, Model m, @PathVariable("id") Long lampId) {
+        List<LightLampData> allLamps = lightLampDataRepository.findAll();
+        m.addAttribute("LAMPS", allLamps);
+        return "lampView";
 
     }
 
@@ -98,6 +107,8 @@ public class LightLampController {
 
         return "lightMap";
     }
+
+
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
