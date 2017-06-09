@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Illumination App</title>
+    <object th:include="fragments/script_styles :: styles_script" th:remove="tag" ></object>
+    <script  type="text/javascript" th:src="@{/js/lightForm.js}"></script>
+
+</head>
+<body>
+
+<div id="wrapper">
+    <object th:replace="fragments/global_layout :: page_layout" ></object>
+
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+            <div class="row" th:each="ol,row ${LAMPS}">
+                <div class="col-md-6" th:text="${ol.name}"></div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+</div>
+<!--<div th:replace="fragments/footer :: footer"> </div>-->
+
+</body>
+</html>

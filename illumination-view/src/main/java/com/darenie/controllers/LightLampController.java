@@ -58,8 +58,16 @@ public class LightLampController {
     }
 
 
-    @RequestMapping("/views")
-    public String viewAllLamp(ServletRequest request, ServletResponse responses, Model m, @PathVariable("id") Long lampId) {
+    @RequestMapping("/lamp/views")
+    public String viewAllLamp(ServletRequest request, ServletResponse responses, Model m) {
+        List<LightLampData> allLamps = lightLampDataRepository.findAll();
+        m.addAttribute("LAMPS", allLamps);
+        return "lampView";
+
+    }
+
+    @RequestMapping("/module/views")
+    public String viewAllModule(ServletRequest request, ServletResponse responses, Model m) {
         List<LightLampData> allLamps = lightLampDataRepository.findAll();
         m.addAttribute("LAMPS", allLamps);
         return "lampView";
