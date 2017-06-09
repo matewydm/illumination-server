@@ -36,6 +36,7 @@ import java.util.List;
 @Controller
 @SessionAttributes({LightLampController.LIGHT_LAMP_FORM,
                     LightLampController.CREATE_LAMP_FORM,
+                    LightLampController.CREATE_MODULE_FORM,
                     LightLampController.MODULES,
                     LightLampController.STATUSES})
 @RequestMapping("/light")
@@ -98,9 +99,11 @@ public class LightLampController {
 
         return "createLampForm";
     }
-    @RequestMapping("/module/create")
+    @RequestMapping(value = "/module/create",method = RequestMethod.GET)
     public String createModule(ServletRequest request, ServletResponse responses, Model m) {
-        m.addAttribute(CREATE_MODULE_FORM,new ModuleCreateForm());
+        LampModuleData module = new LampModuleData();
+        ModuleCreateForm form= new ModuleCreateForm(module);
+        m.addAttribute(CREATE_MODULE_FORM,form);
         return "createModuleForm";
     }
 

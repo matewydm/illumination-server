@@ -16,6 +16,9 @@
             <form th:action="@{/light/module/create}" method="post" th:object="${CREATE_MODULE_FORM}">
 
 
+                <div th:if="${#fields.hasAnyErrors()}">
+                    <div class="alert alert-danger" role="alert" th:each="err : ${#fields.allErrors()}" th:text="${err}" > </div>
+                </div>
                 <div class="row form-group">
                     <div class="col-md-1" th:text="#{labels.form.name}"></div>
                     <div class="col-md-3" >

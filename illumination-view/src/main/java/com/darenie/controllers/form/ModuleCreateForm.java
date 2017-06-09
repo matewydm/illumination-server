@@ -2,69 +2,54 @@ package com.darenie.controllers.form;
 
 import com.darenie.database.model.LampModuleData;
 import com.darenie.database.model.LightLampData;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.*;
 import java.util.List;
 
 public class ModuleCreateForm {
-    @Size(min = 5)
-
-    private String name;
-    private String description;
-//    @Pattern(regexp = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$")
-    private String ipAddress;
-
-    @NotNull
-    @Min(1)
-    @Max(65355)
-    private Integer port;
+    private LampModuleData module;
 
 
-    public ModuleCreateForm() {
+    public ModuleCreateForm(LampModuleData module) {
+        this.module = module;
     }
 
-
-
-    @Size(min = 5)
+    @Size(min=4)
     public String getName() {
-        return name;
+        return module.getName();
     }
 
     public void setName(String name) {
-        this.name = name;
+        module.setName(name);
+    }
+    @NotNull
+    @Pattern(regexp="^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$")
+    public String getIpAddress() {
+        return module.getIpAddress();
     }
 
     public String getDescription() {
-        return description;
+        return module.getDescription();
+    }
+
+    public LampModuleData setIpAddress(String ipAddress) {
+        return module.setIpAddress(ipAddress);
     }
 
     public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
-    }
-
-    public Integer getPort() {
-        return port;
-    }
-
-    public void setPort(Integer port) {
-        this.port = port;
-    }
-
-    public LampModuleData getModule() {
-        LampModuleData module = new LampModuleData();
-        module.setName(name);
         module.setDescription(description);
-        module.setIpAddress(ipAddress);
-        module.setPort(port);
+    }
+    @Range(min = 1,max = 65535)
+    public Integer getPort() {
+        return module.getPort();
+    }
+
+    public LampModuleData setPort(Integer port) {
+        return module.setPort(port);
+    }
+
+    public LampModuleData getModule(){
         return module;
     }
-
 }
