@@ -3,9 +3,8 @@ package com.darenie.controllers.form;
 import com.darenie.database.model.AddressData;
 import com.darenie.database.model.LampModuleData;
 import com.darenie.database.model.LightLampData;
+import org.hibernate.validator.constraints.Range;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 public class LampCreateForm {
@@ -42,8 +41,7 @@ public class LampCreateForm {
         return lightLampData.getAddressData();
     }
 
-    @Min(-90)
-    @Max(90)
+    @Range(min = -90, max = 90)
     public Double getLatitude() {
         return getAddressData().getLatitude();
     }
@@ -61,8 +59,7 @@ public class LampCreateForm {
         return getAddressData().getStreet();
     }
 
-    @Min(-180)
-    @Max(180)
+    @Range(min = -180, max = 180)
     public Double getLongitude() {
         return getAddressData().getLongitude();
     }

@@ -21,6 +21,7 @@
                     <tr>
                         <td th:text="#{labels.form.name}"></td>
                         <td><input type="text" required="true" th:field="*{name}" /></td>
+                        <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
                     </tr>
                     <tr>
                         <td th:text="#{labels.form.description}"></td>
@@ -29,7 +30,7 @@
                     <tr>
                         <td th:text="#{labels.form.latitude}"></td>
                         <td><input type="text" required="true" th:field="*{latitude}" /></td>
-                        <td th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}">Age Error</td>
+                        <td th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}"></td>
                     </tr>
                     <tr>
                         <td th:text="#{labels.form.longitude}"></td>
@@ -38,6 +39,7 @@
                     <tr>
                         <td th:text="#{labels.form.country}"></td>
                         <td><input type="text" th:field="*{country}" /></td>
+                        <td th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></td>
                     </tr>
                     <tr>
                         <td th:text="#{labels.form.city}"></td>
@@ -74,6 +76,7 @@
                     <tr>
                         <td th:text="#{labels.form.module.number}"></td>
                         <td><input type="text" required="true" th:field="*{lampModuleNumber}" /></td>
+                        <td th:if="${#fields.hasErrors('lampModuleNumber')}" th:errors="*{lampModuleNumber}"></td>
                     </tr>
                 </table>
 
