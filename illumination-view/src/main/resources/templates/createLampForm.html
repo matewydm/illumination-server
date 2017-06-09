@@ -30,6 +30,7 @@
                     <tr>
                         <td th:text="#{labels.form.latitude}"></td>
                         <td><input type="text" required="true" th:field="*{latitude}" /></td>
+                        <td th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}">Age Error</td>
                     </tr>
                     <tr>
                         <td th:text="#{labels.form.longitude}"></td>

@@ -1,6 +1,11 @@
 package com.darenie.controllers;
 
 import com.darenie.controllers.form.*;
+import com.darenie.controllers.form.LampCreateForm;
+import com.darenie.controllers.form.LightLampForm;
+import com.darenie.controllers.form.TimeLineWrapper;
+import com.darenie.controllers.form.TimeScheduleForm;
+import com.darenie.controllers.form.validator.LampCreateFormValidator;
 import com.darenie.database.dao.LampModuleDataRepository;
 import com.darenie.database.dao.LightLampDataRepository;
 import com.darenie.database.model.LampModuleData;
@@ -30,15 +35,17 @@ import java.util.List;
 
 @Controller
 @SessionAttributes({LightLampController.LIGHT_LAMP_FORM,
-        LightLampController.CREATE_LAMP_FORM,LightLampController.CREATE_MODULE_FORM})
+                    LightLampController.CREATE_LAMP_FORM,
+                    LightLampController.MODULES,
+                    LightLampController.STATUSES})
 @RequestMapping("/light")
 public class LightLampController {
 
     public static final String LIGHT_LAMP_FORM = "LIGHT_LAMP_FORM";
     public static final String CREATE_LAMP_FORM = "CREATE_LAMP_FORM";
-    private static final String MODULES = "MODULES";
-    private static final String STATUSES = "STATUSES";
     public static final String CREATE_MODULE_FORM = "CREATE_MODULE_FORM";
+    public static final String MODULES = "MODULES";
+    public static final String STATUSES = "STATUSES";
 
     @Autowired
     private LightLampService lightLampService;
@@ -46,6 +53,8 @@ public class LightLampController {
     private LightLampDataRepository lightLampDataRepository;
     @Autowired
     private LampModuleDataRepository lampModuleDataRepository;
+    @Autowired
+    private LampCreateFormValidator createFormValidator;
 
     @RequestMapping("/create/{id}")
     public String loadLightCIForm(ServletRequest request, ServletResponse responses, Model m, @PathVariable("id") Long lampId) {
@@ -76,8 +85,8 @@ public class LightLampController {
 
     }
 
-    @RequestMapping("lamp/create")
-    public String createLamp(ServletRequest request, ServletResponse responses, Model m) {
+    @RequestMapping("/lamp/create")
+    public String createLamp(Model m) {
 
         List<LampModuleData> moduleDataList = lampModuleDataRepository.findAll();
         m.addAttribute(MODULES, moduleDataList);
@@ -115,16 +124,16 @@ public class LightLampController {
     }
 
 
-    @RequestMapping(value = "lamp/create",method = RequestMethod.POST)
+    @RequestMapping(value = "/lamp/create",method = RequestMethod.POST)
     public String createLamp (ServletRequest request, ServletResponse response,
                               @Valid @ModelAttribute(CREATE_LAMP_FORM) LampCreateForm form,
-                              Model model, BindingResult bindingResult){
+                              BindingResult bindingResult, Model model){
 
-//        registerFormValidator.validate(registerForm, bindingResult);
+        createFormValidator.validate(form, bindingResult);
 
-//        if (bindingResult.hasErrors()) {
-//            return registerForm(model);
-//        }
+        if (bindingResult.hasErrors()) {
+            return "createLampForm";
+        }
 
         lightLampDataRepository.save(form.getLightLampData());
 
@@ -172,8 +181,6 @@ public class LightLampController {
 
         return "lightMap";
     }
-
-
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
