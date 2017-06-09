@@ -97,7 +97,7 @@ public class LightLampController {
     @RequestMapping(value = "/lamp/create",method = RequestMethod.POST)
     public String createLamp (ServletRequest request, ServletResponse response,
                               @Valid @ModelAttribute(CREATE_LAMP_FORM) LampCreateForm form,
-                              Model model, BindingResult bindingResult){
+                              BindingResult bindingResult, Model model){
 
         createFormValidator.validate(form, bindingResult);
 
