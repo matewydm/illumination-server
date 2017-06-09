@@ -1,11 +1,10 @@
 package com.darenie.controllers;
 
 import com.darenie.controllers.form.RegisterForm;
-import com.darenie.controllers.form.RegisterFormValidator;
+import com.darenie.controllers.form.validator.RegisterFormValidator;
 import com.darenie.json.model.RoleJson;
 import com.darenie.json.model.UserJson;
 import com.darenie.service.UserService;
-import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

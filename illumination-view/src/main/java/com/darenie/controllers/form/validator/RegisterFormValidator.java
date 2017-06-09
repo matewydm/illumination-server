@@ -1,5 +1,6 @@
-package com.darenie.controllers.form;
+package com.darenie.controllers.form.validator;
 
+import com.darenie.controllers.form.RegisterForm;
 import com.darenie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

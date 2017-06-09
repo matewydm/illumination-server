@@ -4,9 +4,15 @@ import com.darenie.database.model.AddressData;
 import com.darenie.database.model.LampModuleData;
 import com.darenie.database.model.LightLampData;
 
-import java.util.List;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 public class LampCreateForm {
+
+    public LampCreateForm() {
+        this(new LightLampData());
+    }
 
     private LightLampData lightLampData;
 
@@ -36,10 +42,13 @@ public class LampCreateForm {
         return lightLampData.getAddressData();
     }
 
+    @Min(-90)
+    @Max(90)
     public Double getLatitude() {
         return getAddressData().getLatitude();
     }
 
+    @Size(max = 3)
     public String getCountry() {
         return getAddressData().getCountry();
     }
@@ -52,7 +61,8 @@ public class LampCreateForm {
         return getAddressData().getStreet();
     }
 
-
+    @Min(-180)
+    @Max(180)
     public Double getLongitude() {
         return getAddressData().getLongitude();
     }
@@ -72,7 +82,6 @@ public class LampCreateForm {
     public void setCity(String city) {
         getAddressData().setCity(city);
     }
-
 
     public void setStreet(String street) {
         getAddressData().setStreet(street);

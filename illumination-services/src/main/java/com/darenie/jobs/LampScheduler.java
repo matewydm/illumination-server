@@ -13,7 +13,7 @@ public class LampScheduler {
 
     @Scheduled(cron="0 0/1 * * * *")
     public void verifyLampStatuses() {
-        lightLampMockBean.verifyLampStatuses();
+//        lightLampMockBean.verifyLampStatuses();
     }
 
 }

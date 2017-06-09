@@ -28,7 +28,7 @@ public class LightLampData extends AbstractData{
 
     private Integer lampModuleNumber;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_data_id")
     public AddressData getAddressData() {
         return addressData;
