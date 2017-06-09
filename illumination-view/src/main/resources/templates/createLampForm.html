@@ -17,73 +17,78 @@
         <div class="container-fluid">
             <form th:action="@{/light/lamp/create} " method="post" th:object="${CREATE_LAMP_FORM}">
 
+                <div th:if="${#fields.hasAnyErrors()}">
+                    <div class="alert alert-danger" role="alert" th:each="err : ${#fields.allErrors()}" th:text="${err}" > </div>
+                </div>
 
-                <table>
-                    <tr>
-                        <td th:text="#{labels.form.name}"></td>
-                        <td><input type="text" required="true" th:field="*{name}" /></td>
-                        <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{labels.form.description}"></td>
-                        <td><input type="text" th:field="*{description}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{labels.form.latitude}"></td>
-                        <td><input type="text" required="true" th:field="*{latitude}" /></td>
-                        <td th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}"></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{labels.form.longitude}"></td>
-                        <td><input type="text" required="true" th:field="*{longitude}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{labels.form.country}"></td>
-                        <td><input type="text" th:field="*{country}" /></td>
-                        <td th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{labels.form.city}"></td>
-                        <td><input type="text" th:field="*{city}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{labels.form.street}"></td>
-                        <td><input type="text" th:field="*{street}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{labels.form.statuses}">
-                        </td>
-                        <td>
-                            <select class="form-control" id="status" name="status">
-                                <option th:each="stat : ${STATUSES}"
-                                        th:value="${stat}"
-                                        th:text="${stat}">Wireframe
-                                </option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{labels.form.modules}">
-                        </td>
-                        <td>
-                            <select class="form-control" th:field="*{lampModuleData}" id="lampModuleData" name="lampModuleData">
-                                <option th:each="lampModuleData : ${MODULES}"
-                                        th:value="${lampModuleData.id}"
-                                        th:text="#{${lampModuleData.name}}">Wireframe
-                                </option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{labels.form.module.number}"></td>
-                        <td><input type="text" required="true" th:field="*{lampModuleNumber}" /></td>
-                        <td th:if="${#fields.hasErrors('lampModuleNumber')}" th:errors="*{lampModuleNumber}"></td>
-                    </tr>
-                </table>
-
-                <button type="submit" name="addRow" th:text="#{labels.form.create}"></button>
-                <button type="reset" name="addRow" th:text="#{labels.form.reset}"></button>
-
+                <div class="row form-group">
+                    <div class="col-md-1" th:text="#{labels.form.name}"></div>
+                    <div class="col-md-3" >
+                        <input class="form-control" type="text" required="true"  th:field="*{name}" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-1" th:text="#{labels.form.description}"></div>
+                    <div class="col-md-3" >
+                        <input class="form-control" type="text" th:field="*{description}" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-1" th:text="#{labels.form.latitude}"></div>
+                    <div class="col-md-3" >
+                        <input class="form-control" type="text" th:field="*{latitude}" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-1" th:text="#{labels.form.longitude}"></div>
+                    <div class="col-md-3" >
+                        <input class="form-control" type="text" th:field="*{longitude}" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-1" th:text="#{labels.form.country}"></div>
+                    <div class="col-md-3" >
+                        <input class="form-control" type="text" th:field="*{country}" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-1" th:text="#{labels.form.city}"></div>
+                    <div class="col-md-3" >
+                        <input class="form-control" type="text" th:field="*{city}" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-1" th:text="#{labels.form.statuses}"></div>
+                    <div class="col-md-3" >
+                        <select class="form-control" id="status" name="status">
+                            <option th:each="stat : ${STATUSES}"
+                                    th:value="${stat}"
+                                    th:text="${stat}">Wireframe
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-1" th:text="#{labels.form.modules}"></div>
+                    <div class="col-md-3" >
+                        <select class="form-control" th:field="*{lampModuleData}" id="lampModuleData" name="lampModuleData">
+                            <option th:each="lampModuleData : ${MODULES}"
+                                    th:value="${lampModuleData.id}"
+                                    th:text="#{${lampModuleData.name}}">Wireframe
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-1" th:text="#{labels.form.module.number}"></div>
+                    <div class="col-md-3" >
+                        <input class="form-control" type="text" required="true" th:field="*{lampModuleNumber}" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <button  type="submit" class="btn btn-primary" name="addRow" th:text="#{labels.form.create}"></button>
+                    <button type="reset" name="addRow" th:text="#{labels.form.reset}"></button>
+                </div>
             </form>
         </div>
         <!-- /.container-fluid -->
