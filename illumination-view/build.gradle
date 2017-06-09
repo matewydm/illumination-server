@@ -13,7 +13,7 @@ buildscript {
 
 }
 apply plugin: 'org.springframework.boot'
-//apply plugin: 'war'
+apply plugin: 'war'
 
 repositories {
     mavenCentral()
@@ -34,6 +34,8 @@ dependencies{
     testCompile('org.springframework.boot:spring-boot-starter-test')
     compile("org.springframework.boot:spring-boot-devtools")
     compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.2.2")
+    compile("org.hibernate:hibernate-validator")
+    compile("commons-validator:commons-validator:1.5.1")
     compile project(':illumination-model')
     compile project(':illumination-services')
 }

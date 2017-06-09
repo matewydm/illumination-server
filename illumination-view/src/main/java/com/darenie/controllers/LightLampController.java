@@ -1,9 +1,6 @@
 package com.darenie.controllers;
 
-import com.darenie.controllers.form.LampCreateForm;
-import com.darenie.controllers.form.LightLampForm;
-import com.darenie.controllers.form.TimeLineWrapper;
-import com.darenie.controllers.form.TimeScheduleForm;
+import com.darenie.controllers.form.*;
 import com.darenie.database.dao.LampModuleDataRepository;
 import com.darenie.database.dao.LightLampDataRepository;
 import com.darenie.database.model.LampModuleData;
@@ -20,24 +17,20 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.security.RolesAllowed;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.validation.Valid;
 import java.beans.PropertyEditor;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.List;
-import java.util.function.Function;
 
 @Controller
-@SessionAttributes({LightLampController.LIGHT_LAMP_FORM, LightLampController.CREATE_LAMP_FORM})
+@SessionAttributes({LightLampController.LIGHT_LAMP_FORM,
+        LightLampController.CREATE_LAMP_FORM,LightLampController.CREATE_MODULE_FORM})
 @RequestMapping("/light")
 public class LightLampController {
 
@@ -45,6 +38,7 @@ public class LightLampController {
     public static final String CREATE_LAMP_FORM = "CREATE_LAMP_FORM";
     private static final String MODULES = "MODULES";
     private static final String STATUSES = "STATUSES";
+    public static final String CREATE_MODULE_FORM = "CREATE_MODULE_FORM";
 
     @Autowired
     private LightLampService lightLampService;
@@ -94,6 +88,22 @@ public class LightLampController {
         m.addAttribute(CREATE_LAMP_FORM, lampCreateForm);
 
         return "createLampForm";
+    }
+    @RequestMapping("/module/create")
+    public String createModule(ServletRequest request, ServletResponse responses, Model m) {
+        m.addAttribute(CREATE_MODULE_FORM,new ModuleCreateForm());
+        return "createModuleForm";
+    }
+
+    @RequestMapping(value = "/module/create",method = RequestMethod.POST)
+    public String createModule(ServletRequest reqeust, ServletResponse response,
+                               @Valid @ModelAttribute(LightLampController.CREATE_MODULE_FORM) ModuleCreateForm form, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "createModuleForm";
+        }
+
+        lampModuleDataRepository.save(form.getModule());
+        return "redirect:/";
     }
 
     private List<String> getStatuses() {
