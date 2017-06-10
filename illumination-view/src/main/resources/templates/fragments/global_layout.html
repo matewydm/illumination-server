@@ -1,4 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html th:lang="${#locale.language}" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -8,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Illumination Street Light Lamp CMS</title>
     <!-- Bootstrap Core CSS -->
-    <object th:include="fragments/script_styles :: styles_script" th:remove="tag" />
+    <object th:include="fragments/script_styles :: styles_script" th:remove="tag"/>
 
 
 </head>
@@ -32,18 +33,23 @@
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b
+                        class="caret"></b></a>
                 <ul class="dropdown-menu message-dropdown">
-                    <li class="message-footer" th:with="currentUrl=(${#httpServletRequest.requestURI + '?' + #strings.defaultString(#httpServletRequest.queryString, '')})">
-
-                            <a th:href="@{${currentUrl}(language=pl)}">pl</a>
-                            <a th:href="@{${currentUrl}(language=en)}">en</a>
-                        <a href="#" th:text="#{label.no.messages}"></a>
+                    <li class="message-footer"
+                        th:with="currentUrl=(${#httpServletRequest.requestURI + '?' + #strings.defaultString(#httpServletRequest.queryString, '')})">
+                        <a th:href="@{${currentUrl}(language=pl)}">
+                            <img th:src="@{/img/pl.svg}" height="42" width="42"/>
+                        </a>
+                        <a th:href="@{${currentUrl}(language=en)}">
+                            <img th:src="@{/img/gb.svg}" height="42" width="42"/>
+                        </a>
                     </li>
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b
+                        class="caret"></b></a>
                 <ul class="dropdown-menu alert-dropdown">
                     <li class="divider"></li>
                     <li>
@@ -53,7 +59,8 @@
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>
-                    <span th:inline="text" ><span th:text="#{label.hello}"></span> [[${#httpServletRequest.remoteUser}]]!</span><b class="caret"></b></a>
+                    <span th:inline="text"><span th:text="#{label.hello}"></span> [[${#httpServletRequest.remoteUser}]]!</span><b
+                            class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
                         <a href="#"><i class="fa fa-fw fa-user" th:text="#{label.profile}"></i></a>
@@ -66,7 +73,7 @@
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a th:href ="@{/logout}"><i class="fa fa-fw fa-power-off" th:text="#{label.logout}"></i></a>
+                        <a th:href="@{/logout}"><i class="fa fa-fw fa-power-off" th:text="#{label.logout}"></i></a>
                     </li>
                 </ul>
             </li>
@@ -75,16 +82,21 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                 <li>
-                    <a href="/light/map"><i class="fa fa-fw fa-dashboard"> </i><span th:text="#{label.light.map}"></span></a>
+                    <a href="/light/map"><i class="fa fa-fw fa-dashboard"> </i><span
+                            th:text="#{label.light.map}"></span></a>
                 </li>
                 <li>
-                    <a href="/light/lamp/views"><i class="fa fa-fw fa-table"></i> <span th:text="#{label.lamp.views}"></span></a>
+                    <a href="/light/lamp/views"><i class="fa fa-fw fa-table"></i> <span
+                            th:text="#{label.lamp.views}"></span></a>
                 </li>
                 <li>
-                    <a href="/light/module/views"><i class="fa fa-fw fa-edit"></i> <span th:text="#{label.module.views}"></span></a>
+                    <a href="/light/module/views"><i class="fa fa-fw fa-edit"></i> <span
+                            th:text="#{label.module.views}"></span></a>
                 </li>
                 <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> <span th:text="#{label.light.manage}"></span> <i class="fa fa-fw fa-caret-down"></i></a>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i
+                            class="fa fa-fw fa-arrows-v"></i> <span th:text="#{label.light.manage}"></span> <i
+                            class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="demo" class="collapse">
                         <li>
                             <a href="/light/lamp/create"><span th:text="#{label.lamp.create}"></span></a>
@@ -95,7 +107,8 @@
                     </ul>
                 </li>
                 <li class="active">
-                    <a href="/blank-page.html"><i class="fa fa-fw fa-file"></i> <span th:text="#{label.pageempty}"></span></a>
+                    <a href="/blank-page.html"><i class="fa fa-fw fa-file"></i> <span
+                            th:text="#{label.pageempty}"></span></a>
                 </li>
                 <li>
                     <a href="/index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
@@ -119,7 +132,7 @@
                     </h1>
                     <ol class="breadcrumb">
                         <li>
-                            <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
+                            <i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
                         </li>
                         <li class="active">
                             <i class="fa fa-file"></i> Blank Page
@@ -129,7 +142,8 @@
             </div>
             <!-- /.row -->
 
-        </div>;
+        </div>
+        ;
         <!-- /.container-fluid -->
 
     </div>

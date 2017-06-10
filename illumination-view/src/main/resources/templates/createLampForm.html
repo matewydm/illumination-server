@@ -3,96 +3,114 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Illumination App</title>
-    <object th:include="fragments/script_styles :: styles_script" th:remove="tag" ></object>
-    <script  type="text/javascript" th:src="@{/js/lightForm.js}"></script>
+    <object th:include="fragments/script_styles :: styles_script" th:remove="tag"></object>
+    <script type="text/javascript" th:src="@{/js/lightForm.js}"></script>
 
 </head>
 <body>
 
 <div id="wrapper">
-    <object th:replace="fragments/global_layout :: page_layout" ></object>
+    <object th:replace="fragments/global_layout :: page_layout"></object>
 
     <div id="page-wrapper">
 
         <div class="container-fluid">
-            <form th:action="@{/light/lamp/create} " method="post" th:object="${CREATE_LAMP_FORM}">
+            <div class="row">
+                <div class="col-md-6">
+                    <form th:action="@{/light/lamp/create} " method="post" th:object="${CREATE_LAMP_FORM}">
 
-                <div th:if="${#fields.hasAnyErrors()}">
-                    <div class="alert alert-danger" role="alert" th:each="err : ${#fields.allErrors()}" th:text="${err}" > </div>
-                </div>
+                        <div th:if="${#fields.hasAnyErrors()}">
+                            <div class="alert alert-danger" role="alert" th:each="err : ${#fields.allErrors()}"
+                                 th:text="${err}"></div>
+                        </div>
 
-                <div class="row form-group">
-                    <div class="col-md-1" th:text="#{labels.form.name}"></div>
-                    <div class="col-md-3" >
-                        <input class="form-control" type="text" required="true"  th:field="*{name}" />
-                    </div>
+                        <div class="row form-group">
+                            <div class="col-md-2" th:text="#{labels.form.name}"></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" required="true" th:field="*{name}"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-2" th:text="#{labels.form.description}"></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" th:field="*{description}"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-2" th:text="#{labels.form.latitude}"></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" th:field="*{latitude}"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-2" th:text="#{labels.form.longitude}"></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" th:field="*{longitude}"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-2" th:text="#{labels.form.country}"></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" th:field="*{country}"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-2" th:text="#{labels.form.city}"></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" th:field="*{city}"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-2" th:text="#{labels.form.city}"></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" th:field="*{street}"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-2" th:text="#{labels.form.statuses}"></div>
+                            <div class="col-md-6">
+                                <select class="form-control" id="status" name="status">
+                                    <option th:each="stat : ${STATUSES}"
+                                            th:value="${stat}"
+                                            th:text="${stat}">Wireframe
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-2" th:text="#{labels.form.modules}"></div>
+                            <div class="col-md-6">
+                                <select class="form-control" th:field="*{lampModuleData}" id="lampModuleData"
+                                        name="lampModuleData">
+                                    <option th:each="lampModuleData : ${MODULES}"
+                                            th:value="${lampModuleData.id}"
+                                            th:text="#{${lampModuleData.name}}">Wireframe
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-2" th:text="#{labels.form.module.number}"></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" required="true" th:field="*{lampModuleNumber}"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <button type="submit" class="btn btn-primary" name="addRow"
+                                    th:text="#{labels.form.create}"></button>
+                            <button type="reset" name="addRow" th:text="#{labels.form.reset}"></button>
+                        </div>
+                    </form>
                 </div>
-                <div class="row form-group">
-                    <div class="col-md-1" th:text="#{labels.form.description}"></div>
-                    <div class="col-md-3" >
-                        <input class="form-control" type="text" th:field="*{description}" />
-                    </div>
+                <div class="col-md-6">
+                    <div id="map" style="width:100%;height:400px;"></div>
                 </div>
-                <div class="row form-group">
-                    <div class="col-md-1" th:text="#{labels.form.latitude}"></div>
-                    <div class="col-md-3" >
-                        <input class="form-control" type="text" th:field="*{latitude}" />
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-1" th:text="#{labels.form.longitude}"></div>
-                    <div class="col-md-3" >
-                        <input class="form-control" type="text" th:field="*{longitude}" />
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-1" th:text="#{labels.form.country}"></div>
-                    <div class="col-md-3" >
-                        <input class="form-control" type="text" th:field="*{country}" />
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-1" th:text="#{labels.form.city}"></div>
-                    <div class="col-md-3" >
-                        <input class="form-control" type="text" th:field="*{city}" />
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-1" th:text="#{labels.form.statuses}"></div>
-                    <div class="col-md-3" >
-                        <select class="form-control" id="status" name="status">
-                            <option th:each="stat : ${STATUSES}"
-                                    th:value="${stat}"
-                                    th:text="${stat}">Wireframe
-                            </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-1" th:text="#{labels.form.modules}"></div>
-                    <div class="col-md-3" >
-                        <select class="form-control" th:field="*{lampModuleData}" id="lampModuleData" name="lampModuleData">
-                            <option th:each="lampModuleData : ${MODULES}"
-                                    th:value="${lampModuleData.id}"
-                                    th:text="#{${lampModuleData.name}}">Wireframe
-                            </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-1" th:text="#{labels.form.module.number}"></div>
-                    <div class="col-md-3" >
-                        <input class="form-control" type="text" required="true" th:field="*{lampModuleNumber}" />
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <button  type="submit" class="btn btn-primary" name="addRow" th:text="#{labels.form.create}"></button>
-                    <button type="reset" name="addRow" th:text="#{labels.form.reset}"></button>
-                </div>
-            </form>
+            </div>
         </div>
         <!-- /.container-fluid -->
-
+        <script type="text/javascript" src="/js/lamp-create-map.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6-ajzun0ZQL43737t54ib-p7QW_Ssopc&amp;callback=initMap"
+                async="defer"></script>
     </div>
 </div>
 <!--<div th:replace="fragments/footer :: footer"> </div>-->
