@@ -6,6 +6,7 @@ import com.darenie.controllers.form.LightLampForm;
 import com.darenie.controllers.form.TimeLineWrapper;
 import com.darenie.controllers.form.TimeScheduleForm;
 import com.darenie.controllers.form.validator.LampCreateFormValidator;
+import com.darenie.controllers.form.validator.LightLampFormValidator;
 import com.darenie.database.dao.LampModuleDataRepository;
 import com.darenie.database.dao.LightLampDataRepository;
 import com.darenie.database.model.LampModuleData;
@@ -57,6 +58,8 @@ public class LightLampController {
     private LampModuleDataRepository lampModuleDataRepository;
     @Autowired
     private LampCreateFormValidator createFormValidator;
+    @Autowired
+    private LightLampFormValidator lightLampFormValidator;
 
     @RequestMapping("/create/{id}")
     public String loadLightCIForm(ServletRequest request, ServletResponse responses, Model m, @PathVariable("id") Long lampId) {
@@ -73,11 +76,8 @@ public class LightLampController {
 
     @RequestMapping("/lamp/views")
     public String viewAllLamp(ServletRequest request, ServletResponse responses, Model m) {
-//        List<LightLampData> allLamps = lightLampDataRepository.findAll();
         List<LampModuleData> allModules = lampModuleDataRepository.findAll();
-//        List<LampDetailsForm> detailsForm = allLamps.stream().map(LampDetailsForm::new).collect(Collectors.toList());
         List<ModuleDetailsForm> moduleDetailsForms = allModules.stream().map(ModuleDetailsForm::new).collect(Collectors.toList());
-//        m.addAttribute("LAMPS", detailsForm);
         m.addAttribute(MODULES, moduleDetailsForms);
         return "lampView";
 
@@ -151,7 +151,14 @@ public class LightLampController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createLightCi(ServletRequest request, ServletResponse response,
                                 @Valid @ModelAttribute(LIGHT_LAMP_FORM) LightLampForm form,
-                                BindingResult r, Model m) {
+                                BindingResult bindingResult, Model m) {
+
+        lightLampFormValidator.validate(form, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "lampForm";
+        }
+
         List<TimeLineData> time = new ArrayList<>();
         for (TimeScheduleForm td : form.getTimes()) {
             int day = td.getDay().getValue();
