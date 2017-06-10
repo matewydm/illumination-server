@@ -16,6 +16,12 @@
 
         <div class="container-fluid">
                 <form th:action="@{/light/create} " method="post" th:object="${LIGHT_LAMP_FORM}">
+
+                    <div th:if="${#fields.hasAnyErrors()}">
+                        <div class="alert alert-danger" role="alert" th:each="err : ${#fields.allErrors()}"
+                             th:text="${err}"></div>
+                    </div>
+
                     <input type="text" th:field="*{name}" readonly="readonly" />
                     <div th:each="timeData,status : *{times}" class="form-group jq-day-group">
                         <div th:text="${timeData.day}"></div>
