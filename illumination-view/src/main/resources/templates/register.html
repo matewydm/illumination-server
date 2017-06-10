@@ -16,36 +16,42 @@
         <div class="container-fluid">
 
             <form th:action="@{/register}" method="post" th:object="${REGISTER_FORM}">
-                <table>
-                    <tr>
-                        <td th:text="#{labels.form.login}">
-                        </td>
-                        <td>
-                            <input type="text" th:field="*{login}" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{labels.form.password}">
 
-                        </td>
-                        <td>
-                            <input type="password" required="true" th:field="*{password}" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{labels.form.roles}">
-                        </td>
-                        <td>
-                            <select th:field="*{roleIds}" multiple="multiple">
-                                <option th:each="role : ${ROLES}" th:field="*{roleIds}" th:value="${{role.roleId}}" th:text="#{${role.roleName}}">Wireframe</option>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
+                <div th:if="${#fields.hasAnyErrors()}">
+                    <div class="alert alert-danger" role="alert" th:each="err : ${#fields.allErrors()}"
+                         th:text="${err}"></div>
+                </div>
 
-                <button type="submit" name="addRow" th:text="#{labels.form.create}"></button>
-                <button type="reset" name="addRow" th:text="#{labels.form.reset}"></button>
-
+                <div class="row form-group">
+                    <div class="col-md-2" th:text="#{labels.form.login}"></div>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" required="true" th:field="*{login}"/>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-2" th:text="#{labels.form.password}"></div>
+                    <div class="col-md-2">
+                        <input class="form-control"  type="password" required="true" th:field="*{password}" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-2" th:text="#{labels.form.roles}"></div>
+                    <div class="col-md-2">
+                        <select class="form-control" th:field="*{roleIds}" multiple="multiple" id="lampModuleData"
+                                name="lampModuleData">
+                            <option th:each="role : ${ROLES}"
+                                    th:field="*{roleIds}"
+                                    th:value="${{role.roleId}}"
+                                    th:text="#{${role.roleName}}">Wireframe
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <button type="submit" class="btn btn-primary" name="addRow"
+                            th:text="#{labels.form.create}"></button>
+                    <button type="reset" name="addRow" th:text="#{labels.form.reset}"></button>
+                </div>
             </form>
         </div>
         <!-- /.container-fluid -->

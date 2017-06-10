@@ -25,22 +25,8 @@ public class RegisterFormValidator implements Validator{
     public void validate(Object o, Errors errors) {
         RegisterForm registerForm = (RegisterForm) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "NotEmpty");
-        if (registerForm.getLogin().length() < 4 || registerForm.getLogin().length() > 32) {
-            errors.rejectValue("login", "Size.registerForm.login");
-        }
         if (userService.findByUsrLogin(registerForm.getLogin()) != null) {
             errors.rejectValue("login", "Duplicate.registerForm.login");
-        }
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-        if (registerForm.getPassword().length() < 4 || registerForm.getPassword().length() > 32) {
-            errors.rejectValue("password", "Size.registerForm.password");
-        }
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "roleIds", "NotEmpty");
-        if (registerForm.getRoleIds() == null || registerForm.getRoleIds().isEmpty()) {
-            errors.rejectValue("roleIds", "Size.registerForm.roleIds");
         }
 
     }

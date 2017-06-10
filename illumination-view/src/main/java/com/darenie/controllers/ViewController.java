@@ -2,6 +2,9 @@ package com.darenie.controllers;
 
 import com.darenie.controllers.form.RegisterForm;
 import com.darenie.controllers.form.validator.RegisterFormValidator;
+import com.darenie.database.dao.RoleDao;
+import com.darenie.database.model.Role;
+import com.darenie.database.model.User;
 import com.darenie.json.model.RoleJson;
 import com.darenie.json.model.UserJson;
 import com.darenie.service.UserService;
@@ -21,16 +24,19 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@SessionAttributes(ViewController.REGISTER_FORM)
+@SessionAttributes({ViewController.REGISTER_FORM,
+                    ViewController.ROLES})
 public class ViewController {
 
     public static final String REGISTER_FORM = "REGISTER_FORM";
-    private static final String ROLES = "ROLES";
+    public static final String ROLES = "ROLES";
 
     @Autowired
     private RegisterFormValidator registerFormValidator;
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleDao roleDao;
     @Autowired
     private MessageSource ms;
     @Autowired
@@ -54,11 +60,11 @@ public class ViewController {
     @RequestMapping(value = "/register",method = RequestMethod.GET)
         public String registerForm(Model model){
 
-        UserJson user = new UserJson();
+        User user = new User();
         RegisterForm registerForm = new RegisterForm(user);
         model.addAttribute(REGISTER_FORM,registerForm);
 
-        List<RoleJson> roles = userService.getAllRoles();
+        List<Role> roles = roleDao.findAll();
         model.addAttribute(ROLES,roles);
 
         return "register";
@@ -72,14 +78,15 @@ public class ViewController {
         registerFormValidator.validate(registerForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return registerForm(m);
+            return "register";
         }
 
         List<RoleJson> roles = userService.getRolesByIds(registerForm.getRoleIds());
-        UserJson user = registerForm.getUser();
-        user.setRoles(roles);
+        User user = registerForm.getUser();
+        UserJson userJson = modelMapper.map(user,UserJson.class);
+        userJson.setRoles(roles);
 
-        userService.save(user);
+        userService.save(userJson);
 
         return "redirect:/";
     }
