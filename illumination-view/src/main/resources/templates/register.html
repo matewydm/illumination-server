@@ -37,7 +37,7 @@
                 <div class="row form-group">
                     <div class="col-md-2" th:text="#{labels.form.roles}"></div>
                     <div class="col-md-2">
-                        <select class="form-control" th:field="*{roleIds}" multiple="multiple" id="lampModuleData"
+                        <select class="selectpicker" th:field="*{roleIds}" multiple="multiple" id="lampModuleData"
                                 name="lampModuleData">
                             <option th:each="role : ${ROLES}"
                                     th:field="*{roleIds}"
