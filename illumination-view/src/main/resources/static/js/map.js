@@ -55,7 +55,7 @@ function setCircle(map, lamps) {
         });
         google.maps.event.addListener(lampCircle, 'click', (function (lampCircle, i) {
             return function () {
-                infoWindow.setContent(lamps[i].description);
+                infoWindow.setContent('<a href="/light/create/' +lamps[i].id +'">Click here</a>');
                 infoWindow.setPosition(lampCircle.getCenter());
                 infoWindow.open(map);
             }

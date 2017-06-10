@@ -4,7 +4,6 @@
     <meta charset="UTF-8"/>
     <title>Illumination App</title>
     <object th:include="fragments/script_styles :: styles_script" th:remove="tag" ></object>
-    <script type="text/babel" th:src="@{/js/react/views/example.js}"></script>
 </head>
 <body>
 
@@ -14,8 +13,7 @@
     <div id="page-wrapper">
 
         <div class="container-fluid">
-
-            <div id="root" ></div>
+        <h1 th:text="#{labels.welcome}"></h1>
 
         </div>
         <!-- /.container-fluid -->

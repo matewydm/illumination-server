@@ -176,7 +176,7 @@ public class LightLampController {
         ObjectMapper mapper = new ObjectMapper();
 
         List<LightLampDataJson> lightLampDataJsons = lightLampService.getAll();
-
+        List<LampModuleData> brokenModule = lampModuleDataRepository.findAllByConnected(false);
         try {
             String lampListString = mapper.writeValueAsString(lightLampDataJsons);
             model.addAttribute("lightMapList", lampListString);
@@ -186,7 +186,7 @@ public class LightLampController {
         model.addAttribute("BROKEN", LightLampDataJson.Status.BROKEN);
         model.addAttribute("WORKING", LightLampDataJson.Status.WORKING);
         model.addAttribute("NOT_WORKING", LightLampDataJson.Status.NOT_WORKING);
-
+        model.addAttribute("BROKEN_MODULE",brokenModule);
         return "lightMap";
     }
 

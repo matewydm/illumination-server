@@ -20,13 +20,13 @@
 
 
             <div class="row" th:each="module : ${MODULES}">
-                <button th:text="${module.name}" class="list-group-item list-group-item-warning" type="button" data-toggle="collapse"
+                <button th:text="${module.name}" class="list-group-item"  th:classappend="*{connected}? list-group-item-success : list-group-item-danger" type="button" data-toggle="collapse"
                         th:attr="data-target='#'+ ${module.id} + ${module.name}" aria-expanded="false" aria-controls="collapseExample"></button>
                 <div class="collapse" th:id="${module.id} + ${module.name}">
                     <div th:each="lamp : ${module.lampDetailsForms}" class="list-group-item" >
                         <button th:text="${lamp.name}" class="label label-default" type="button" data-toggle="collapse"
-                                th:attr="data-target='#'+ ${lamp.id} + ${lamp.name}" aria-expanded="false" aria-controls="collapseExample"></button>
-                        <div class="collapse" th:id="${lamp.id} + ${lamp.name}">
+                                th:attr="data-target='#'+ ${lamp.id}" aria-expanded="false" aria-controls="collapseExample"></button>
+                        <div class="collapse" th:id="${lamp.id}">
 
                             <div class="row list-group-item">
                                 <div class="col-md-2 list-group-item list-group-item-info" th:text="#{labels.form.id}"></div>

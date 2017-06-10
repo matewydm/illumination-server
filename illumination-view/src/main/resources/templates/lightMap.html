@@ -25,6 +25,15 @@
 
     <div id="page-wrapper">
         <div class="container-fluid">
+            <div th:each="broken,index: ${BROKEN_MODULE} ">
+                <div class="alert alert-danger" role="alert">
+                    <span th:text="#{labels.cannot.connect}"></span>
+                    <span th:text="${broken.id}"></span>
+                    <span th:text="${broken.name}"></span>
+                    <span th:text="${broken.ipAddress}"></span>
+                    <span th:text="${broken.port}"></span>
+                </div>
+            </div>
             <div class="">
                     <div id="map" class="iframe-container"></div>
 
