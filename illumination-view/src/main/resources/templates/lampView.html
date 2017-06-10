@@ -3,24 +3,65 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Illumination App</title>
-    <object th:include="fragments/script_styles :: styles_script" th:remove="tag" ></object>
-    <script  type="text/javascript" th:src="@{/js/lightForm.js}"></script>
+    <object th:include="fragments/script_styles :: styles_script" th:remove="tag"></object>
+    <script type="text/javascript" th:src="@{/js/lightForm.js}"></script>
 
 </head>
 <body>
 
 <div id="wrapper">
-    <object th:replace="fragments/global_layout :: page_layout" ></object>
+    <object th:replace="fragments/global_layout :: page_layout"></object>
 
     <div id="page-wrapper">
 
         <div class="container-fluid">
-            <div class="row" th:each="ol,row ${LAMPS}">
-                <div class="col-md-6" th:text="${ol.name}"></div>
+
+            <div class="row" th:each="lamp,index : ${LAMPS}">
+                <div class="row form-group">
+                    <div class="col-md-2 list-group-item list-group-item-info" th:text="#{labels.form.id}"></div>
+                    <div class="col-md-3 list-group-item " th:text="${lamp.id}"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-2 list-group-item list-group-item-info" th:text="#{labels.form.name}"></div>
+                    <div class="col-md-3 list-group-item " th:text="${lamp.name}"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-2 list-group-item list-group-item-info" th:text="#{labels.form.description}"></div>
+                    <div class="col-md-3 list-group-item " th:text="${lamp.description}"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-2 list-group-item list-group-item-info" th:text="#{labels.form.city}"></div>
+                    <div class="col-md-3 list-group-item " th:text="${lamp.addressData.city}"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-2 list-group-item list-group-item-info" th:text="#{labels.form.street}"></div>
+                    <div class="col-md-3 list-group-item " th:text="${lamp.addressData.street}"></div>
+                </div>
+                <div class="row form-group">
+                    <div  class="col-md-2 list-group-item list-group-item-info" th:text="#{labels.form.status}"></div>
+                    <div class="col-md-3 list-group-item " th:text="${lamp.status}"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-2 list-group-item list-group-item-info" th:text="#{labels.form.module.number}"></div>
+                    <div class="col-md-3 list-group-item " th:text="${lamp.lampModuleNumber}"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-2 list-group-item list-group-item-info" th:text="#{labels.form.schedules}"></div>
+                    <div class="col-md-3">
+                        <div th:each="schedule,i : ${lamp.scheduleForms}">
+                            <button th:text="${schedule.stringDay}" class="list-group-item" type="button" data-toggle="collapse"
+                                    th:attr="data-target='#'+ ${lamp.id} + ${schedule.stringDay}" aria-expanded="false" aria-controls="collapseExample"></button>
+                            <div th:each="time : ${schedule.timeLine}" class="collapse" th:id="${lamp.id} + ${schedule.stringDay}">
+                                <div class="well">
+                                    <span th:text="${time.startTime}"></span> -
+                                    <span th:text="${time.endTime}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- /.container-fluid -->
-
     </div>
 </div>
 <!--<div th:replace="fragments/footer :: footer"> </div>-->

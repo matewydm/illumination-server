@@ -4,6 +4,14 @@ import java.util.Date;
 
 public class TimeLineWrapper {
 
+    public TimeLineWrapper(Date startTime, Date endTime) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    public TimeLineWrapper() {
+    }
+
     private Date startTime;
     private Date endTime;
 

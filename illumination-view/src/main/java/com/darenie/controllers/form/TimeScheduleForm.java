@@ -24,10 +24,6 @@ public class TimeScheduleForm {
     public TimeScheduleForm() {
     }
 
-
-
-
-
     public DayOfWeek getDay() {
         return day;
     }

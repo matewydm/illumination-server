@@ -32,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @SessionAttributes({LightLampController.LIGHT_LAMP_FORM,
@@ -73,7 +74,8 @@ public class LightLampController {
     @RequestMapping("/lamp/views")
     public String viewAllLamp(ServletRequest request, ServletResponse responses, Model m) {
         List<LightLampData> allLamps = lightLampDataRepository.findAll();
-        m.addAttribute("LAMPS", allLamps);
+        List<LampDetailsForm> detailsForm = allLamps.stream().map(LampDetailsForm::new).collect(Collectors.toList());
+        m.addAttribute("LAMPS", detailsForm);
         return "lampView";
 
     }
