@@ -57,7 +57,7 @@
                                 <div class="col-md-3 list-group-item " th:text="${lamp.lampModuleNumber}"></div>
                             </div>
                             <div class="row list-group-item">
-                                <div class="col-md-2 list-group-item list-group-item-info" th:text="#{labels.form.schedules}"></div>
+                                <div class="col-md-2 list-group-item list-group-item-info"><a th:href="@{/light/create/} + ${lamp.id}" th:text="#{labels.form.schedules}"></a></div>
                                 <div class="col-md-3">
                                     <div th:each="schedule,i : ${lamp.scheduleForms}">
                                         <button th:text="${schedule.stringDay}" class="list-group-item" type="button" data-toggle="collapse"

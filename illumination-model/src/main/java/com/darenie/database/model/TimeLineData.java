@@ -2,6 +2,7 @@ package com.darenie.database.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table
@@ -48,5 +49,21 @@ public class TimeLineData {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TimeLineData that = (TimeLineData) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(dayOfWeek, that.dayOfWeek) &&
+                Objects.equals(startTime, that.startTime) &&
+                Objects.equals(endTime, that.endTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, dayOfWeek, startTime, endTime);
     }
 }

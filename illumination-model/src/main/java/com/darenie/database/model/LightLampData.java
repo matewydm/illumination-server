@@ -90,4 +90,6 @@ public class LightLampData extends AbstractData{
                 .filter(t -> t.getDayOfWeek().equals(day.getValue()))
                 .collect(Collectors.toList());
     }
+
+
 }

@@ -73,11 +73,11 @@ public class LightLampController {
 
     @RequestMapping("/lamp/views")
     public String viewAllLamp(ServletRequest request, ServletResponse responses, Model m) {
-        List<LightLampData> allLamps = lightLampDataRepository.findAll();
+//        List<LightLampData> allLamps = lightLampDataRepository.findAll();
         List<LampModuleData> allModules = lampModuleDataRepository.findAll();
-        List<LampDetailsForm> detailsForm = allLamps.stream().map(LampDetailsForm::new).collect(Collectors.toList());
+//        List<LampDetailsForm> detailsForm = allLamps.stream().map(LampDetailsForm::new).collect(Collectors.toList());
         List<ModuleDetailsForm> moduleDetailsForms = allModules.stream().map(ModuleDetailsForm::new).collect(Collectors.toList());
-        m.addAttribute("LAMPS", detailsForm);
+//        m.addAttribute("LAMPS", detailsForm);
         m.addAttribute(MODULES, moduleDetailsForms);
         return "lampView";
 

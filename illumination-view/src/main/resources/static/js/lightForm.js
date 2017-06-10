@@ -5,25 +5,27 @@ $(function () {
 });
 function clone() {
     var regex = /^(.+)\[(\d+)\](.+)\[(\d+)\](.+)$/;
-    var inputName = $(this).parent().children(".jq-copy-time").last().find(".jq-start-to-clone").attr("name");
+    var inputName = $(this).parent().children(".jq-start-to-clone").attr("name");
+    var place = $(this).closest(".jq-group");
 
-    if (inputName === undefined) {
-        inputName =$(this).parent().children(".jq-to-clone").find(".jq-start-to-clone").attr("name");
-    }
     var matcher = inputName.match(regex);
     var dayId = parseInt(matcher[2]);
-    var timeId = parseInt(matcher[4]) + 1;
+    var prevTimeName =  place.children(".jq-copy").last().children(".jq-start-to-clone").attr("name")
+    var timeId =1;
+    if(prevTimeName !== undefined)
+        timeId =parseInt(prevTimeName.match(regex)[4]) +1;
+
     console.log("dare");
-    var place = $(this).closest(".jq-day-group");
-        $(this).closest(".jq-day-group").children(".jq-to-clone").clone()
+      var x= $(this).closest(".jq-template").clone().remove(".add-more")
             .append("<button class=\"btn btn-danger jq-remove\" type=\"button\">-</button>")
-        .appendTo(place).wrap("<div class='form-group jq-copy-time'></div>").find("*").each(function () {
+        .appendTo(place).addClass("jq-copy").find("*").each(function () {
         var name = this.name || "";
         var match = name.match(regex) || [];
         if (match.length === 6) {
             this.name = match[1] + "[" + (dayId) + "]" + match[3] + "[" + timeId + "]" + match[5];
         }
     });
+    x.remove(".add-more");
     $(".jq-remove").on("click", remove);
 
     //     .attr("id", "clonedInput" +  cloneIndex)
@@ -42,5 +44,5 @@ function clone() {
 
 function remove() {
     console.log("abc");
-    $(this).closest(".jq-copy-time").remove();
+    $(this).closest(".jq-copy").remove();
 }
