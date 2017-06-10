@@ -16,6 +16,7 @@ public class LampModuleData extends AbstractData {
     private String ipAddress;
     private Integer port;
     private List<LightLampData> lampDataList;
+    private Boolean isConnected;
 
 
     @Column(nullable = false)
@@ -44,5 +45,14 @@ public class LampModuleData extends AbstractData {
 
     public void setLampDataList(List<LightLampData> lampDataList) {
         this.lampDataList = lampDataList;
+    }
+
+    @Column(name = "is_connected")
+    public Boolean getConnected() {
+        return isConnected;
+    }
+
+    public void setConnected(Boolean connected) {
+        isConnected = connected;
     }
 }
