@@ -28,7 +28,7 @@ public class LightLampData extends AbstractData{
 
     private Integer lampModuleNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "address_data_id")
     public AddressData getAddressData() {
         return addressData;
@@ -47,7 +47,7 @@ public class LightLampData extends AbstractData{
         this.status = status;
     }
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
     @JoinColumn(name="light_lamp_id")
     public List<TimeLineData> getTimeLineData() {
         return timeLineData;

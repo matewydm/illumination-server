@@ -35,7 +35,8 @@
                                 <div class="jq-copy" th:if="${timeStatus.index} !=0">
                                   <label>Start</label><input class="jq-start-to-clone" th:field="*{times[__${status.index}__].timeLine[__${timeStatus.index}__].startTime}" />
                                     <label>End</label><input class="jq-end-to-clone" th:field="*{times[__${status.index}__].timeLine[__${timeStatus.index}__].endTime}"  />
-                                    <button class="btn btn-danger jq-remove" type="button">-</button>
+                                      <input type="checkbox" class ="jq-remove-tag hidden" th:field="*{times[__${status.index}__].timeLine[__${timeStatus.index}__].remove}" />
+                                    <button class="btn btn-danger jq-remove-existed" type="button">-</button>
                                 </div>
                             </span>
 

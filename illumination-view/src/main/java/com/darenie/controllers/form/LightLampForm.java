@@ -28,6 +28,7 @@ public class LightLampForm {
                TimeLineWrapper wrapper = new TimeLineWrapper();
                wrapper.setStartTime(c.getStartTime());
                wrapper.setEndTime(c.getEndTime());
+               wrapper.setId(c.getId());
                listWrapper.add(wrapper);
            }
            if(listWrapper.size() !=0)

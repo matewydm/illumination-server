@@ -31,7 +31,9 @@ public class LightLampServiceImpl implements LightLampService {
     @Override
     public Long updateLampLightDateWithTimeLineData(List<TimeLineData> data, Long lightId) {
         LightLampData lightLampData= lightLampDataDao.getOne(lightId);
-        lightLampData.setTimeLineData(data);
+        lightLampData.getTimeLineData().clear();
+        lightLampData.getTimeLineData().addAll(data);
+//        lightLampData.setTimeLineData(data);
          lightLampDataDao.saveAndFlush(lightLampData);
         return 1L;
     }

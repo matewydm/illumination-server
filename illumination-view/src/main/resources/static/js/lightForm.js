@@ -2,6 +2,7 @@ $(function () {
     console.log("ready!");
     $(".add-more").on("click", clone);
     $(".jq-remove").on("click", remove);
+    $(".jq-remove-existed").on("click", removeExisted);
 });
 function clone() {
     var regex = /^(.+)\[(\d+)\](.+)\[(\d+)\](.+)$/;
@@ -42,6 +43,11 @@ function clone() {
     // cloneIndex++;
 }
 
+function removeExisted() {
+    var el =$(this).closest(".jq-copy");
+    el.hide().children(".jq-remove-tag").prop('checked', true);
+
+}
 function remove() {
     console.log("abc");
     $(this).closest(".jq-copy").remove();

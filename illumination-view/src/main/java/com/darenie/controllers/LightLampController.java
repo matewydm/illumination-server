@@ -61,17 +61,6 @@ public class LightLampController {
     @Autowired
     private LightLampFormValidator lightLampFormValidator;
 
-    @RequestMapping("/create/{id}")
-    public String loadLightCIForm(ServletRequest request, ServletResponse responses, Model m, @PathVariable("id") Long lampId) {
-        LightLampData l = lightLampDataRepository.getOne(lampId);
-
-        LightLampForm form = new LightLampForm(l);
-        m.addAttribute(LIGHT_LAMP_FORM, form);
-        m.addAttribute("cudo", "abcd");
-        return "lampForm";
-
-
-    }
 
 
     @RequestMapping("/lamp/views")
@@ -148,6 +137,18 @@ public class LightLampController {
         return "redirect:/";
     }
 
+    @RequestMapping("/create/{id}")
+    public String loadLightCIForm(ServletRequest request, ServletResponse responses, Model m, @PathVariable("id") Long lampId) {
+        LightLampData l = lightLampDataRepository.getOne(lampId);
+
+        LightLampForm form = new LightLampForm(l);
+        m.addAttribute(LIGHT_LAMP_FORM, form);
+        m.addAttribute("cudo", "abcd");
+        return "lampForm";
+
+
+    }
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createLightCi(ServletRequest request, ServletResponse response,
                                 @Valid @ModelAttribute(LIGHT_LAMP_FORM) LightLampForm form,
@@ -163,11 +164,12 @@ public class LightLampController {
         for (TimeScheduleForm td : form.getTimes()) {
             int day = td.getDay().getValue();
             for (TimeLineWrapper wrapper : td.getTimeLine()) {
-                if (wrapper.getStartTime() != null && wrapper.getEndTime() != null) {
+                if (wrapper.getStartTime() != null && wrapper.getEndTime() != null && !wrapper.getRemove() ) {
                     TimeLineData data = new TimeLineData();
                     data.setDayOfWeek(day);
                     data.setStartTime(wrapper.getStartTime());
                     data.setEndTime(wrapper.getEndTime());
+                    data.setId(wrapper.getId());
                     time.add(data);
                 }
             }
