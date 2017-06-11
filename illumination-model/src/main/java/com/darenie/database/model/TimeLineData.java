@@ -35,6 +35,7 @@ public class TimeLineData {
         this.dayOfWeek = dayOfWeek;
     }
     @Temporal(TemporalType.TIME)
+    @Column(nullable = false)
     public Date getStartTime() {
         return startTime;
     }
@@ -43,6 +44,7 @@ public class TimeLineData {
         this.startTime = startTime;
     }
     @Temporal(TemporalType.TIME)
+    @Column(nullable = false)
     public Date getEndTime() {
         return endTime;
     }

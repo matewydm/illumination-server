@@ -11,9 +11,17 @@ public class LampScheduler {
     @Autowired
     private LightLampMockBean lightLampMockBean;
 
+    @Autowired
+    private LampDispatcher lightLampDispatcher;
+
     @Scheduled(cron="0 0/1 * * * *")
     public void verifyLampStatuses() {
         lightLampMockBean.verifyLampStatuses();
     }
 
+
+    @Scheduled(cron = "0 0/1 * * * *")
+    public void doDispatch(){
+        lightLampDispatcher.handleLamps();
+    }
 }

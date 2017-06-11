@@ -59,6 +59,16 @@ public class LightLampMockBean {
         return false;
     }
 
+    public void turnOnLamp(LightLampData lampData){
+        lampData.setStatus(LightLampData.Status.WORKING);
+        setLampStatus(lampData);
+    }
+
+    public void turnOffLamp(LightLampData lampData){
+        lampData.setStatus(LightLampData.Status.NOT_WORKING);
+        setLampStatus(lampData);
+    }
+
     private void updateLampModule(LightLampData lampData, boolean isConnected) {
         LampModuleData moduleData = lampData.getLampModuleData();
         if ( !ObjectUtils.nullSafeEquals(moduleData.getConnected(),isConnected) ) {
